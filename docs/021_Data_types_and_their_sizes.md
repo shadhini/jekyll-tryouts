@@ -1,4 +1,4 @@
-# Data types and their sizes
+# Data types (Primitive Data Types) and their sizes
 
 ## Numbers
 several types for `integers` and `fractional` numbers
