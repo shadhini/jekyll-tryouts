@@ -1,1 +1,8 @@
-/.idea/
+# IntelliJ IDEA Files
+**/.idea/
+
+# Jekyll Files
+**/_site/
+**/.jekyll-cache/
+**/Gemfile
+**/Gemfile.lock
