@@ -1,8 +1,8 @@
 <!-- Navigation with Data files and Sass Best Practices-->
 <nav>
     {% for item in site.data.navigation %}
-    <a href="{{ site.baseurl }}{{ item.link }}" {% if page.url == site.baseurl | append: item.link %}class="current"{% endif %}>{{ item.name }}</a>
-    <P> {{site.baseurl | append: item.link}} </P>
+    <a href="{{ site.baseurl }}{{ item.link }}" {% if page.url == item.link %}class="current"{% endif %}>{{ item.name }}</a>
+    <P> {{item.link}} </P>
     <P> {{page.url}} </P>
     {% endfor %}
 </nav>
