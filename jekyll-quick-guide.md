@@ -1,3 +1,9 @@
+#### Testing Jekyll on GH Pages locally with live reload
+from the root directory for ph pages
+```bash
+jekyll serve --livereload
+```
+
 #### Configuration
 `_config.yml`
 ```yaml
@@ -13,7 +19,12 @@ baseurl: "/jekyll-tryouts"
     |-- _layouts: page layouts
     |-- _includes: reusable code snippets
     |-- _posts: blog posts
+        * site.posts
+        * post.url
+        * post.title: post filename or front matter title
+        * post.excerpt: first para of content
     |-- _data: data files
+        * site.data
     |-- _sass: sass files
     |-- assets: site assets
         |-- css
@@ -22,6 +33,7 @@ baseurl: "/jekyll-tryouts"
     |-- index.html/index.md
     |-- about.html/about.md
     |-- contact.html/contact.md
+    |-- blogs.html: blogs (taken from /_posts) list view 
 ```
 
 #### Site Assets & Styling
@@ -55,6 +67,8 @@ stylesheet url: `assets/css/style.css`
 
 #### Navigation
 `_includes/navigation.html`
+      
+-     site.data.navigation
 
 data file: `_data/navigation.yml`
 ```yaml
@@ -63,3 +77,6 @@ data file: `_data/navigation.yml`
 - name: About
   link: /about.html
 ```
+
+#### Layouts
+can inherit from another layout

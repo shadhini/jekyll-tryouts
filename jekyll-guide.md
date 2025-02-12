@@ -399,4 +399,81 @@ structure to keep assets organized:
 
 Load up http://localhost:4000 
 
+## 8. Blogging
+`Blog without a database.`
+In Jekyll style, blogging is powered by **text files only**.
 
+### 8.1. Posts
+Blog posts live in a folder called `_posts`.
+
+Filename format for posts: [PUBLISH_DATE_YYYY:MM:DD]-[TITLE].[EXTENSION]
+
+Create a post at `_posts/2025-02-12-welcome-to-jekyll-posts.md` with the following content:
+
+```markdown
+---
+layout: post
+author: jill
+---
+
+# Welcome to Jekyll Posts 
+
+This is an example of a blog post.
+```
+
+- **author** is a custom variable 
+- The `post` **layout** doesn’t exist so you’ll need to create it at `_layouts/post.html `with the following content:
+
+```html
+---
+layout: default
+---
+<h1>{{ page.title }}</h1>
+<p>{{ page.date | date_to_string }} - {{ page.author }}</p>
+
+{{ content }}
+```
+
+- This is an example of **layout inheritance**.
+- `date_to_string` **filter** formats a date into a nicer format.
+
+### 8.2. List posts
+Typically a blog has a page which lists all the posts.
+
+Jekyll makes posts available at `site.posts`.
+
+Create `blogs.html` in your root (/blogs.html) with the following content:
+
+```html
+---
+layout: default
+title: Blog
+---
+<h1>Latest Posts</h1>
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      {{ post.excerpt }}
+    </li>
+  {% endfor %}
+</ul>
+```
+
+- `post.url`: automatically set by Jekyll to the output path of the post 
+- `post.title`: pulled from the post filename and can be overridden by setting title in front matter
+- `post.excerpt`: the first paragraph of content by default
+
+Open `_data/navigation.yml` and add an entry for the blogs page:
+
+```yml
+- name: Home
+  link: /
+- name: About
+  link: /about.html
+- name: Blog
+  link: /blog.html
+```
+
+Add few more posts and open http://localhost:4000 
