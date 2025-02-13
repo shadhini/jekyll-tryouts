@@ -1,8 +1,9 @@
 ---
 layout: post
 author: jill
+title: Blog1 Title
 ---
 
-# Welcome to Jekyll Posts: My First Post
+#### Blog 1: Heading 
 
 This is an example of a blog post.

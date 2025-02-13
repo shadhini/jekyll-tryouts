@@ -408,12 +408,13 @@ Blog posts live in a folder called `_posts`.
 
 Filename format for posts: [PUBLISH_DATE_YYYY:MM:DD]-[TITLE].[EXTENSION]
 
-Create a post at `_posts/2025-02-12-welcome-to-jekyll-posts.md` with the following content:
+Create a post at `_posts/2025-02-10-blog1-file-name.md` with the following content:
 
 ```markdown
 ---
 layout: post
 author: jill
+title: Blog1 Title
 ---
 
 # Welcome to Jekyll Posts 
@@ -473,7 +474,7 @@ Open `_data/navigation.yml` and add an entry for the blogs page:
 - name: About
   link: /about.html
 - name: Blog
-  link: /blog.html
+  link: /blogs.html
 ```
 
 Add few more posts and open http://localhost:4000 

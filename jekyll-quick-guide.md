@@ -1,9 +1,10 @@
 #### Testing Jekyll on GH Pages locally with live reload
 from the root directory for ph pages
 ```bash
+cd docs
 jekyll serve --livereload
 ```
-
+a
 #### Configuration
 `_config.yml`
 ```yaml
