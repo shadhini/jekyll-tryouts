@@ -1,6 +1,6 @@
 ---
 layout: post
-author: jill2
+author: jack
 title: Blog2 Title
 ---
 
