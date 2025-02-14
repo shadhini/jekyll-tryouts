@@ -678,3 +678,162 @@ The posts have a reference to the author so let’s link it to the author’s pa
 
 * Open up http://localhost:4000 
 
+
+## 11. Deployment
+`Get the site ready for production`
+
+### 11.1. Gemfile & Bundle
+
+`Gemfile`:  ensures the version of Jekyll and other gems remains consistent across different environments.
+- file should be called ‘Gemfile’ and should not have any extension
+
+
+`Bundler`: installs the gems and 
+creates a `Gemfile.lock` which locks the current gem versions for a future bundle install
+
+
+###### Create Gemfile with Bundler and then add the jekyll gem:
+
+    bundle init
+    bundle add jekyll
+
+Gemfile
+```
+# frozen_string_literal: true
+source "https://rubygems.org"
+
+gem "jekyll"
+```
+
+###### Update the gem versions 
+
+    bundle update
+
+###### Best Practices
+* When using a `Gemfile`, run commands with `bundle exec` prefixed. 
+      
+      bundle exec jekyll serve
+
+  * This restricts your Ruby environment to **only use gems set in your Gemfile**.
+
+#### If publishing your site with GitHub Pages,
+**Note**:
+- you can match production version of Jekyll by using the `github-pages` **gem** instead of `jekyll` in your `Gemfile`. 
+- In this scenario you may also want to **exclude** `Gemfile.lock` from your repository 
+because GitHub Pages ignores that file.
+
+### 11.2. Plugins
+`allow you to create custom generated content specific to your site`
+
+###### three official plugins:
+* `jekyll-sitemap` - Creates a sitemap file to help search engines index content 
+* `jekyll-feed` - Creates an RSS feed for your posts 
+* `jekyll-seo-tag` - Adds meta tags to help with SEO (Search Engine Optimization)
+
+#### Jekyll Plugins usage
+
+###### if using jekyll gem 
+To use jekyll plugins, add them to `Gemfile`.
+
+* If you put them in a `jekyll_plugins` **group** they’ll automatically be required into Jekyll:
+
+`Gemfile`:
+```
+source 'https://rubygems.org'
+
+gem "jekyll"
+
+group :jekyll_plugins do
+  gem "jekyll-sitemap"
+  gem "jekyll-feed"
+  gem "jekyll-seo-tag"
+end
+```
+
+`_config.yml`:
+
+```yaml
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+```
+
+
+* Now install them
+
+      bundle update
+
+* For `jekyll-feed` and `jekyll-seo-tag` 
+
+   * add tags to `_layouts/default.html`:
+  
+     ```html
+          <!doctype html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <title>{{ page.title }}</title>
+              <link rel="stylesheet" href="/assets/css/styles.css">
+              {% feed_meta %}
+              {% seo %}
+            </head>
+            <body>
+              {% include navigation.html %}
+              {{ content }}
+            </body>
+          </html>
+     ```
+
+* `jekyll-sitemap` doesn’t need any setup, it creates sitemap on build
+* Restart Jekyll server and check these tags are added to the `<head>`
+
+###### if using github-pages gem
+* The `github-pages` gem manages its own dependencies and includes specific versions of Jekyll and 
+officially supported plugins. 
+
+* As of now, `jekyll-sitemap`, `jekyll-feed`, and `jekyll-seo-tag` are part of the plugins GitHub Pages supports.
+
+* Since they are bundled, there's no need to install or declare these plugins separately in `Gemfile`. 
+* They only need to be configured in `_config.yml` to enable them.
+
+
+### 11.3. Environments
+**Environments**: used when you want to output something in production but not in development.
+
+E.g.: Analytics scripts
+
+###### Set the environment
+by using the `JEKYLL_ENV` environment variable when running a command
+
+e.g:
+
+    JEKYLL_ENV=production bundle exec jekyll build
+
+* By default `JEKYLL_ENV` is `development`. 
+* The JEKYLL_ENV is available to you in **liquid** using `jekyll.environment`.
+
+###### Example usecase
+output the analytics script only on production
+```html
+{% if jekyll.environment == "production" %}
+  <script src="my-analytics-script.js"></script>
+{% endif %}
+```
+
+### 11.4. Deployment
+* Run a production build:
+    
+      JEKYLL_ENV=production bundle exec jekyll build
+
+* copy the contents of `_site` to your server 
+
+Note:
+* The contents of `_site` (destination folders) are automatically **cleaned**, by default, when the site is built. 
+* Files or folders that are not created by your site's build process will be removed.
+
+Retain files removed upon site builds:
+* by specifying them within the `keep_files` **configuration** directive
+* by keeping them in `assets` directory
+* **better way**: automate the process using a CI or 3rd party
+

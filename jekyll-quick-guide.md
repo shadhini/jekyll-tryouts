@@ -1,4 +1,5 @@
 ## About jekyll
+
 ###### input files: 
 * `.md`, `.html`, `.yml`, `.json`
 * templates/tags in `liquid` --> `{{ }}`, `{% %}`
@@ -18,6 +19,15 @@
 ###### output files:
 `_site` folder
 
+###### deployment:
+
+`Gemfile` – for dependency management
+`Bundler` – manages Ruby gem dependencies
+
+if publishing site with GitHub Pages,
+- match production version of Jekyll by using the `github-pages` **gem** instead of `jekyll` in your `Gemfile`
+- **exclude** `Gemfile.lock` from repository as GitHub Pages ignores that file
+
 ###### notes:
 Jekyll converts markdown files to html files using following methods.
  * **layouts**, 
@@ -29,6 +39,7 @@ Jekyll converts markdown files to html files using following methods.
 * to set custom properties for individual page/content
 
 ## Testing Jekyll on GH Pages locally with live reload
+
 from the root directory for ph pages
 ```bash
 cd docs
@@ -44,7 +55,28 @@ baseurl: "/jekyll-tryouts"
 collections:
   authors:
     output: true
-# front matter defaults: set a layout for all items in a collection
+# front matter defaults: can be used to set property values for all items/pages in a matching path 
+defaults:
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: "projects"
+      type: "pages" 
+    values:
+      layout: "project" # overrides previous default layout
+      author: "Mr. Hyde"
 ```
 
 * Whenever `_config.yml` file is updated, you'd have to restart Jekyll for the changes to take effect.
@@ -176,3 +208,90 @@ data file: `_data/navigation.yml`
   link: /about.html
 ```
 
+## Plugins:
+* `jekyll-sitemap` - Creates a sitemap file to help search engines index content
+* `jekyll-feed` - Creates an RSS feed for your posts
+* `jekyll-seo-tag` - Adds meta tags to help with SEO (Search Engine Optimization)
+
+###### if using `jekyll` gem in Gemfile
+
+`Gemfile`:
+```
+source 'https://rubygems.org'
+
+gem "jekyll"
+
+group :jekyll_plugins do
+  gem "jekyll-sitemap"
+  gem "jekyll-feed"
+  gem "jekyll-seo-tag"
+end
+```
+- putting plugins on `jekyll_plugins` group, make them automatically be required into Jekyll
+
+`_config.yml`:
+
+```yaml
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+```
+
+command to install plugins:
+    
+    bundle update
+
+For `jekyll-feed` and `jekyll-seo-tag` 
+* `_layouts/default.html`
+    ```html
+    <!doctype html>
+    <html>
+    <head>
+      .....
+      {% feed_meta %}
+      {% seo %}
+    </head>
+    .....
+    </html>
+    ```
+
+###### if using `github-pages` gem in Gemfile
+* `jekyll-sitemap`, `jekyll-feed`, and `jekyll-seo-tag` plugins are supported natively and 
+bundled with the `github-pages` gem. So there's no need to manually include them in `Gemfile`.
+
+`_config.yml`:
+
+```yaml
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+```
+
+For `jekyll-feed` and `jekyll-seo-tag`
+* `_layouts/default.html`
+    ```html
+    <!doctype html>
+    <html>
+    <head>
+      .....
+      {% feed_meta %}
+      {% seo %}
+    </head>
+    .....
+    </html>
+    ```
+
+## Environments
+
+liquid var: `jekyll.environment`
+
+    JEKYLL_ENV=production bundle exec jekyll build
+
+
+## Deployment
+Retain files removed upon site builds:
+* by specifying them within the `keep_files` **configuration** directive
+* by keeping them in `assets` directory
+* **better way**: automate the process using a CI or 3rd party
