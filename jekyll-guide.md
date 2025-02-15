@@ -797,6 +797,12 @@ officially supported plugins.
 * Since they are bundled, there's no need to install or declare these plugins separately in `Gemfile`. 
 * They only need to be configured in `_config.yml` to enable them.
 
+---
+Updated list of supported plugins/dependencies in GitHub Pages: 
+[GitHub Pages Dependencies](https://pages.github.com/versions/)
+
+---
+
 
 ### 11.3. Environments
 **Environments**: used when you want to output something in production but not in development.
@@ -837,3 +843,62 @@ Retain files removed upon site builds:
 * by keeping them in `assets` directory
 * **better way**: automate the process using a CI or 3rd party
 
+
+12. Integrate CSS Framework to Jekyll Site
+
+`CSS`: Styles web pages and layouts by adjusting the appearance of HTML elements.
+
+`SCSS`/`SASS`: A CSS preprocessor that adds variables, nested rules, and functions for more efficient styling.
+
+`Tailwind`: A utility-first CSS framework with low-level classes for direct styling in HTML, 
+offering flexibility but leading to verbose code.
+
+`Bootstrap`: A front-end CSS framework with pre-styled components 
+for building responsive, mobile-first websites quickly.
+
+
+#### Using Bootstrap Template via CDN
+
+bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti/)
+
+`/assets/css/styles.scss`
+```scss
+---
+---
+//@import "main";
+```
+
+`_includes/head.html`
+```html
+<head>
+    .....
+
+    <!-- Stylesheets -->
+    <!-- ------------------------------------------------------------------------------------------------------->
+    <!-- imports the Bootstrap library's styles into the webpage -->
+  
+    <!-- Bootswatch yeti bootstrap theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cerulean/bootstrap.min.css">
+  
+    <!-- Bootstrap -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
+    <!-- <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url }}"> -->
+  
+    <!-- custom CSS styles specific to the project:
+    used alongside Bootstrap framework to provide additional customizations that are unique to the project -->
+    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+</head>
+```
+
+`_layouts/default.html`
+```html
+<!doctype html>
+<html>
+{% include head.html %}
+<body>
+.....
+    <!-- Bootstrap JS and Popper.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+```

@@ -100,6 +100,7 @@ defaults:
         * site.<COLLECTION_NAME>
     |-- assets: site assets
         |-- css
+            |-- styles.scss: entry point for the website’s CSS
         |-- js
         |-- images
     |-- index.html/index.md
@@ -295,3 +296,47 @@ Retain files removed upon site builds:
 * by specifying them within the `keep_files` **configuration** directive
 * by keeping them in `assets` directory
 * **better way**: automate the process using a CI or 3rd party
+
+## Integrating CSS Framework
+
+#### Using Bootswatch Yeti Bootstrap Template via CDN
+
+bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti/)
+
+`/assets/css/styles.scss`
+```scss
+---
+---
+//@import "main";
+```
+
+`_includes/head.html`
+```html
+<head>
+    .....
+
+    <!-- Stylesheets -->
+    <!-- ------------------------------------------------------------------------------------------------------->
+    <!-- Bootswatch yeti bootstrap theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cerulean/bootstrap.min.css">
+  
+    <!-- custom CSS styles specific to the project:
+    used alongside Bootstrap framework to provide additional customizations that are unique to the project -->
+    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+</head>
+```
+
+`_layouts/default.html`
+```html
+<!doctype html>
+<html>
+{% include head.html %}
+<body>
+.....
+    <!-- Bootstrap JS and Popper.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+```
+
+

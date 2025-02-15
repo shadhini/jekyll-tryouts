@@ -32,13 +32,3 @@ The primary goal of this project is to:
 - [GitHub Pages Documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site-with-jekyll)
 - [Liquid Templating Documentation](https://shopify.github.io/liquid/)
 
----
-
-## License
-
-This project is open for experimentation and does not have a specific license. 
-Feel free to copy, modify, and break as much as needed!
-
----
-
-Happy experimenting!
