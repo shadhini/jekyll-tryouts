@@ -323,6 +323,10 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
     <!-- custom CSS styles specific to the project:
     used alongside Bootstrap framework to provide additional customizations that are unique to the project -->
     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
+
+    <!-- Scripts / JS Files -->
+    <!-- Include the theme script -->
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
 </head>
 ```
 
@@ -339,4 +343,7 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 </html>
 ```
 
+#### Other CSS styles related files
 
+`assets/js/`
+- `theme.js`: JS script for enabling switching between **_dark_** and **_light_** site color themes/modes

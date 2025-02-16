@@ -6,6 +6,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
+            <!-- Left Menu Items -->
             <ul class="navbar-nav me-auto">
                 {% for item in site.data.navigation %}
                 <li class="nav-item">
@@ -14,7 +15,9 @@
                 </li>
                 {% endfor %}
             </ul>
+            <!-- Right Menu -->
             <ul class="navbar-nav ms-md-auto">
+                <!-- GitHUb Link -->
                 <li class="nav-item">
                     <a target="_blank" rel="noopener" class="nav-link" href="https://github.com/shadhini/jekyll-tryouts/"><i class="bi bi-github"></i><span class="d-lg-none ms-2">GitHub</span></a>
                 </li>
@@ -22,6 +25,7 @@
                     <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
                     <hr class="d-lg-none my-2 text-white-50">
                 </li>
+                <!-- Toggle Theme/ Color Mode -->
                 <li class="nav-item dropdown" data-bs-theme="light">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="theme-menu" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme">
                         <i class="bi bi-circle-half"></i>
