@@ -1,10 +1,10 @@
 ---
 # front matter tells Jekyll to process Liquid
-title: Home #browser tab title
+title: Jekyll Tryouts #browser tab title
 layout: default
 ---
 
-# Test Static Website: {{ page.title }} Page
+# Static Website: {{ page.title }} Page
 
 ---
 `[index.md]`
