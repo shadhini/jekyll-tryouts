@@ -1,0 +1,12 @@
+bootstrap:
+  topics:
+    - name: "CSS Framework"
+      ref: "css-frameworks"
+    - name: "Web Development Technology"
+      ref: "web-development-technologies"
+tailwind-css:
+  topics:
+    - name: "CSS Framework"
+      ref: "css-frameworks"
+    - name: "Web Development Technology"
+      ref: "web-development-technologies"

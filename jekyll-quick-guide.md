@@ -347,3 +347,60 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 
 `assets/js/`
 - `theme.js`: JS script for enabling switching between **_dark_** and **_light_** site color themes/modes
+
+`_includes/footer.html`
+- web page footer
+
+
+## Reusable Templates
+
+#### Technology Catalog
+main page: `tech-catlog.html`
+
+`_data`
+- `navigation.yml`
+  ```yaml
+  #.....
+  - name: "Tech Catalog"
+    link: /tech-catalog.html
+  ```
+- `technologies.yml`: list of topics for each technology
+- `topics.yml`: list of technologies for each topic
+
+`_layouts`
+- `technology.html`
+- `topic.html`
+
+`_technologies`: `.md` / `.html` per each technology
+- [e.g:] `bootstrap.md`
+- [e.g:] `tailwind-css.md`
+
+`_topics`: `.md` / `.html` per each topic
+- [e.g] `css-frameworks.html`
+- [e.g] `web-development-technologies.html`
+
+`_config.yml`
+  ```yaml
+  collections:
+    # .....
+    technologies:
+      output: true
+    topics:
+      output: true
+  
+  defaults:
+    # .....
+    - scope:
+        path: ""
+        type: "technologies"
+      values:
+        layout: "technology"
+    - scope:
+        path: ""
+        type: "topics"
+      values:
+        layout: "topic"
+  
+  ```
+
+

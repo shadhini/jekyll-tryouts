@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<h2>{{ page.title }}</h2>
+<br>
+{% if page.ref %}
+{% for technology in site.data.topics[page.ref].technologies %}
+<span class="badge bg-secondary">
+    <a href="{{ site.baseurl }}/technologies/{{ technology.ref }}.html" target="_blank" data-bs-theme="light">{{ technology.name }}</a>
+</span>
+{% endfor %}
+{% endif %}
+<br>
+<br>
+{{ content }}

@@ -1,0 +1,22 @@
+web-development-technologies:
+  technologies:
+    - name: "CSS"
+      ref: "css"
+    - name: "Sass"
+      ref: "sass"
+    - name: "Tailwind CSS"
+      ref: "tailwind-css"
+    - name: "Bootstrap"
+      ref: "bootstrap"
+    - name: "JSX"
+      ref: "jsx"
+open-source-technologies:
+  technologies:
+    - name: "Git"
+      ref: "git"
+css-frameworks:
+  technologies:
+    - name: "Tailwind CSS"
+      ref: "tailwind-css"
+    - name: "Bootstrap"
+      ref: "bootstrap"

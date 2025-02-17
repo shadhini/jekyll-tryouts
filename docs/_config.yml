@@ -4,6 +4,10 @@ title: "Jekyll Tryouts" # used to set site title / name
 collections:
   authors:
     output: true
+  technologies:
+    output: true
+  topics:
+    output: true
 
 defaults:
   - scope:
@@ -20,3 +24,13 @@ defaults:
       path: ""
     values:
       layout: "default"
+  - scope:
+      path: ""
+      type: "technologies"
+    values:
+      layout: "technology"
+  - scope:
+      path: ""
+      type: "topics"
+    values:
+      layout: "topic"
