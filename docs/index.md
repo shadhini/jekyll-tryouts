@@ -1,7 +1,7 @@
 ---
 # front matter tells Jekyll to process Liquid
 title: Jekyll Tryouts #browser tab title
-layout: default
+layout: landing-page
 ---
 
 # Static Website: {{ page.title }} Page
