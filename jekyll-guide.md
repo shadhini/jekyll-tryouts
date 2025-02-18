@@ -948,3 +948,37 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 ```
 
 `/assets/js/theme.js`
+
+## 12. Monitor Usage
+
+#### To save bandwidth when using GitHub Pages
+* Regularly monitor bandwidth usage through the GitHub Pages settings to ensure you are within the limits.
+* GitHub Pages has a soft bandwidth limit of 100 GB per month. 
+
+`Github User Profile` -> `Settings` -> `Billing and plans` -> `Plans and usage` 
+-> `Usage this month` -> `Git LFS Data`: `Bandwidth`
+
+#### Alternatively, for more detailed analytics Google Analytics can be integrated
+
+* Create a Google Analytics Account:
+  * Go to Google Analytics and sign up for an account. 
+  * Create a new property for your GitHub Pages site.
+* Get the Tracking Code:
+  * After creating the property, you will receive a tracking code (a JavaScript snippet). 
+* Add the Tracking Code to GitHub Pages Site: `head.html`
+```html
+  <head>
+    ....
+    <!-- Google Analytics Tracking Code -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+  </head>
+```
+* Analyze Traffic:
+  * You can log into your Google Analytics account to view detailed reports on traffic, 
+  user behavior, and inferred bandwidth usage.

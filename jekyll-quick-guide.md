@@ -297,6 +297,30 @@ Retain files removed upon site builds:
 * by keeping them in `assets` directory
 * **better way**: automate the process using a CI or 3rd party
 
+## Monitor Bandwidth Usage
+
+#### With Github Billing Details
+`Github User Profile` -> `Settings` -> `Billing and plans` -> `Plans and usage`
+-> `Usage this month` -> `Git LFS Data`: `Bandwidth`
+
+#### With Google Analytics Account
+* create account, create property for the site and obtain `tracking code`
+* add the `tracking code` to the site layout head 
+```html
+  <head>
+    ....
+    <!-- Google Analytics Tracking Code -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+  </head>
+```
+* view usage details via Google Analytics Account
+
 ## Integrating CSS Framework
 
 #### Using Bootswatch Yeti Bootstrap Template via CDN
