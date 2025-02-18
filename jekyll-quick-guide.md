@@ -427,4 +427,40 @@ main page: `tech-catlog.html`
   
   ```
 
+#### Landing Page layout with Image
+
+`_layouts/landing-page.html`: landing page layout
+
+`_sass/_custom.scss`: custom styles for cover page
+  ```scss
+  // custom cover page styles
+  .cover-page-container {
+    width: 100%;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .cover-page-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+  }
+  ```
+
+`assets/css/styles.scss`
+  ```scss
+  ---
+  ---
+  @import "custom";
+  ```
+
+`assets/images/landing-page-cover-image.png`: landing page image
+
+`index.md`: reference the landing-page layout
+  ```markdown
+  ---
+  ....
+  layout: landing-page
+  ---
+  ```
 

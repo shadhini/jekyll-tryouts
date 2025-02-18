@@ -1,3 +1,16 @@
 // Custom styles specific to the project
 // the _ underscore in the file name let sass know that the file is partial,
 //    but it's (the underscore) not included in imports
+
+// custom cover page styles
+.cover-page-container {
+  width: 100%;
+  overflow: hidden;
+  max-width: 100%;
+}
+.cover-page-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
