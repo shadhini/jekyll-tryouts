@@ -1,14 +1,14 @@
-## About jekyll
+# About jekyll
 
-###### input files: 
+## input files: 
 * `.md`, `.html`, `.yml`, `.json`
 * templates/tags in `liquid` --> `{{ }}`, `{% %}`
 * css/js/assets
 
-###### configuration file: 
+## configuration file: 
 `_config.yml`
 
-###### build process:
+## build process:
 1. parse `.md` files and `liquid` templates
 2. convert `.md` to `.html`
 3. apply templates from `_layouts`
@@ -16,10 +16,10 @@
    * e.g: `{% for item in site.posts %}`
 5. combine all parts into static **HTML** files
 
-###### output files:
+## output files:
 `_site` folder
 
-###### deployment:
+## deployment:
 
 `Gemfile` – for dependency management
 `Bundler` – manages Ruby gem dependencies
@@ -28,7 +28,7 @@ if publishing site with GitHub Pages,
 - match production version of Jekyll by using the `github-pages` **gem** instead of `jekyll` in your `Gemfile`
 - **exclude** `Gemfile.lock` from repository as GitHub Pages ignores that file
 
-###### notes:
+## notes:
 Jekyll converts markdown files to html files using following methods.
  * **layouts**, 
  * `{{content}}` attribute and 
@@ -38,15 +38,15 @@ Jekyll converts markdown files to html files using following methods.
 * to specify configuration details such as `layout` at the individual file level
 * to set custom properties for individual page/content
 
-## Testing Jekyll on GH Pages locally with live reload
+# Testing Jekyll on GH Pages locally with live reload
 
 from the root directory for ph pages
 ```bash
 cd docs
-jekyll serve --livereload
+bundle exec jekyll serve --livereload
 ```
 
-## Configuration
+# Configuration
 jekyll configuration file: `_config.yml`
 ```yaml
 # Base URL: if your site is hosted at https://username.github.io/repository-name
@@ -81,7 +81,7 @@ defaults:
 
 * Whenever `_config.yml` file is updated, you'd have to restart Jekyll for the changes to take effect.
 
-## Directory Structure
+# Directory Structure
 
 ```text
 |-- docs: root gh pages publishing directory
@@ -108,14 +108,15 @@ defaults:
     |-- contact.html/contact.md
     |-- blogs.html: blogs (taken from /_posts) list view 
 ```
-## Site Variables
 
+# Site Variables
+<!-- TODO: site variables -->
 
-## Layouts
+# Layouts
 * no front matter
-* layouts can inherit from another layout
+* layouts can inherit from another layout when front matter included
 
-## Collections
+# Collections
 for each collection
 --> there is a directory named `_<COLLECTION_NAME>` at root directory for gh pages
 
@@ -135,12 +136,12 @@ collection items can be accessed with: `site.<COLLECTION_NAME>` variable
 - 
 
 
-## Filters
+# Filters
 
 * `markdownify`: convert Markdown-formatted text into HTML
   * when `{{ content }}` is used in a layout, it is automatically converted
 
-##### where filter
+## where filter
 ```js
 collection | where: 'key', value
 ```
@@ -154,7 +155,7 @@ e.g:
 * loops through `site.posts` and keeps only those posts 
   * where the `author` front matter in each post matches the value of `page.short_name`
 
-##### connected multiple filters
+## connected multiple filters
 e.g:
 ```html
 {% assign author = site.authors | where: 'short_name', page.author | first %}
@@ -163,7 +164,7 @@ e.g:
 {% endif %}
 ```
 
-## Site Assets & Styling
+# Site Assets & Styling
 assets location: `assets`
 - `assets/css/style.scss`
     ```scss
@@ -195,7 +196,7 @@ layout that uses stylesheet:
 </html>
 ```
 
-## Navigation
+# Navigation
 at `_includes/navigation.html`
 - as part of template to be included in the layout file
 
@@ -209,12 +210,12 @@ data file: `_data/navigation.yml`
   link: /about.html
 ```
 
-## Plugins:
+# Plugins:
 * `jekyll-sitemap` - Creates a sitemap file to help search engines index content
 * `jekyll-feed` - Creates an RSS feed for your posts
 * `jekyll-seo-tag` - Adds meta tags to help with SEO (Search Engine Optimization)
 
-###### if using `jekyll` gem in Gemfile
+## if using `jekyll` gem in Gemfile
 
 `Gemfile`:
 ```
@@ -257,7 +258,7 @@ For `jekyll-feed` and `jekyll-seo-tag`
     </html>
     ```
 
-###### if using `github-pages` gem in Gemfile
+## if using `github-pages` gem in Gemfile
 * `jekyll-sitemap`, `jekyll-feed`, and `jekyll-seo-tag` plugins are supported natively and 
 bundled with the `github-pages` gem. So there's no need to manually include them in `Gemfile`.
 
@@ -284,26 +285,26 @@ For `jekyll-feed` and `jekyll-seo-tag`
     </html>
     ```
 
-## Environments
+# Environments
 
 liquid var: `jekyll.environment`
 
     JEKYLL_ENV=production bundle exec jekyll build
 
 
-## Deployment
+# Deployment
 Retain files removed upon site builds:
 * by specifying them within the `keep_files` **configuration** directive
 * by keeping them in `assets` directory
 * **better way**: automate the process using a CI or 3rd party
 
-## Monitor Bandwidth Usage
+# Monitor Bandwidth Usage
 
-#### With Github Billing Details
+## With Github Billing Details
 `Github User Profile` -> `Settings` -> `Billing and plans` -> `Plans and usage`
 -> `Usage this month` -> `Git LFS Data`: `Bandwidth`
 
-#### With Google Analytics Account
+## With Google Analytics Account
 * create account, create property for the site and obtain `tracking code`
 * add the `tracking code` to the site layout head 
 ```html
@@ -321,9 +322,9 @@ Retain files removed upon site builds:
 ```
 * view usage details via Google Analytics Account
 
-## Integrating CSS Framework
+# Integrating CSS Framework
 
-#### Using Bootswatch Yeti Bootstrap Template via CDN
+## Using Bootswatch Yeti Bootstrap Template via CDN
 
 bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti/)
 
@@ -342,7 +343,7 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
     <!-- Stylesheets -->
     <!-- ------------------------------------------------------------------------------------------------------->
     <!-- Bootswatch yeti bootstrap theme -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/yeti/bootstrap.min.css">
   
     <!-- custom CSS styles specific to the project:
     used alongside Bootstrap framework to provide additional customizations that are unique to the project -->
@@ -367,7 +368,7 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 </html>
 ```
 
-#### Other CSS styles related files
+## Other CSS styles related files
 
 `assets/js/`
 - `theme.js`: JS script for enabling switching between **_dark_** and **_light_** site color themes/modes
@@ -378,7 +379,14 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 
 ## Reusable Templates
 
-#### Technology Catalog
+# Reusable Templates
+
+- `_includes/navigation.html`
+- `_includes/footer.html`
+- `_includes/head.html`
+- `_layouts/default.html`
+
+## Technology Catalog
 main page: `tech-catlog.html`
 
 `_data`
@@ -427,7 +435,7 @@ main page: `tech-catlog.html`
   
   ```
 
-#### Landing Page layout with Image
+## Landing Page layout with Image
 
 `_layouts/landing-page.html`: landing page layout
 
