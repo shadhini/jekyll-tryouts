@@ -1,0 +1,9 @@
+// scss-docs-start color-mode-mixin
+@mixin color-mode($mode: light, $root: false) {
+  // When this mixin is used, it will generate CSS rules for the specified color mode,
+  // applying the styles provided in the @content block.
+    [data-bs-theme="#{$mode}"] {
+      @content;
+    }
+}
+// scss-docs-end color-mode-mixin

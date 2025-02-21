@@ -22,7 +22,11 @@
 ## deployment:
 
 `Gemfile` – for dependency management
+- installing a new gem (adding to gem file): `gem install <GEM_NAME>`
+
 `Bundler` – manages Ruby gem dependencies
+- `bundle install` | `bundle` – installs all gems in the `Gemfile`
+- `bundle exec jekyll serve` – runs Jekyll with the gems in the `Gemfile`
 
 if publishing site with GitHub Pages,
 - match production version of Jekyll by using the `github-pages` **gem** instead of `jekyll` in your `Gemfile`
@@ -377,7 +381,53 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 - web page footer
 
 
-## Reusable Templates
+---
+
+# Markdown Processor
+options: `kramdown` | `GFM` | `Markdown` | `HTML`
+
+`kramdown`: https://kramdown.gettalong.org/documentation.html
+- default markdown processor for Jekyll
+- only kramdown can be locally built with Jekyll
+
+`GFM`: GitHub Flavored Markdown
+
+# Style Code Blocks with Markdown Processor
+
+syntax highlighters supported by Jekyll: `rouge`, `coderay`
+
+#### Handling Liquid Tags in Code Blocks
+If you are using a language that contains curly braces,
+* wrap the code block that contains `{%` and `%}` with  
+  `{% raw %}` and `{% endraw %}` tags.
+* From Jekyll 4.0, 
+  * add `render_with_liquid: false` in front matter
+    to **disable Liquid entirely** for a particular document
+
+## If using Rouge Syntax Highlighter
+dependency: `rouge` gem
+
+`_config.yml`
+```yaml
+
+```
+
+stylesheets: [stylesheets for Pygments](https://github.com/jwarby/jekyll-pygments-themes)
+
+`_sass/mixins/_color-mode.scss`: css mixin to switch css rules between color modes
+
+`docs/_sass/_mixins.scss`: import mixins
+```scss
+@import "mixins/color-mode";
+```
+`_sass/_syntax-highlighting.scss`: syntax highlighting styles based on color mode
+
+`assets/css/styles.scss`: import syntax highlighting styles
+```scss
+.....
+@import "mixins";
+@import "syntax-highlighting";
+```
 
 # Reusable Templates
 

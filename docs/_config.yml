@@ -1,6 +1,36 @@
 baseurl: "/jekyll-tryouts"
 title: "Jekyll Tryouts" # used to set site title / name
 
+plugins:
+  - jekyll-include-cache
+
+# table of content
+#toc:
+#  enabled: true
+#  h_min:   1
+#  h_max:   8
+
+# markdown processor/ markdown render engine settings
+markdown: kramdown # markdown render engine - kramdown
+kramdown: # kramdown settings
+  input: GFM # markdown file input format
+  hard_wrap: false # does not convert single line breaks into <br> tags
+  auto_ids: true # automatically generates id attributes for headings
+  entity_output: as_char # special characters are rendered in the generated HTML as characters (e.g., < as <).
+  toc_levels: 1..6 # includes all heading levels from 1 to 6 in the table of contents
+  smart_quotes: lsquo,rsquo,ldquo,rdquo # set smart quotes to be rendered as left and right single and double quotes
+  gfm_quirks: # quirks for GitHub Flavored Markdown (GFM)
+    - no_auto_typographic # disable automatic typographic replacements
+    - paragraph_end # treat a newline as a paragraph break
+  markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions
+  syntax_highlighter: rouge # syntax highlighter for code blocks
+  syntax_highlighter_opts: # syntax highlighter options
+    guess_lang: true # automatically detect the language of the code block
+    line_numbers: true # display line numbers in code blocks
+    line_number_anchors: true # add anchors to line numbers in code blocks
+  syntax_highlighter_style: colorful # syntax highlighter style
+
+
 collections:
   authors:
     output: true
