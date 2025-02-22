@@ -844,7 +844,7 @@ Retain files removed upon site builds:
 * **better way**: automate the process using a CI or 3rd party
 
 
-12. Integrate CSS Framework to Jekyll Site
+## 12. Integrate CSS Framework to Jekyll Site
 
 `CSS`: Styles web pages and layouts by adjusting the appearance of HTML elements.
 
@@ -903,7 +903,7 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 </html>
 ```
 
-#### Enable toggling Site Color Mode between `dark` and `light`
+### Enable toggling Site Color Mode between `dark` and `light`
 `_includes/navigation.html`
 ```html
 .....
@@ -985,7 +985,7 @@ to **reduce potential screen flickering** during reloading of your site.
   * You can log into your Google Analytics account to view detailed reports on traffic, 
   user behavior, and inferred bandwidth usage.
 
-## 13. Markdown Processor & Code Blocks Styling / Highlighting
+## 14. Markdown Processor & Code Blocks Styling / Highlighting
 
 #### GitHub Pages supported Markdown Processors 
 
@@ -1014,6 +1014,28 @@ options supported by Jekyll: `rouge`, `coderay`
      gem install rouge
 
 `rouge` gem in `Gemfile`
+
+`_config.yml`
+```yaml
+markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions
+
+# markdown processor/ markdown render engine settings
+markdown: kramdown # markdown render engine - kramdown
+kramdown: # kramdown settings
+  input: GFM # markdown file input format
+  hard_wrap: false # does not convert single line breaks into <br> tags
+  auto_ids: true # automatically generates id attributes for headings
+  entity_output: as_char # special characters are rendered in the generated HTML as characters (e.g., < as <).
+  toc_levels: 1..6 # includes all heading levels from 1 to 6 in the table of contents
+  smart_quotes: lsquo,rsquo,ldquo,rdquo # set smart quotes to be rendered as left and right single and double quotes
+  gfm_quirks: # quirks for GitHub Flavored Markdown (GFM)
+    - no_auto_typographic # disable automatic typographic replacements
+    - paragraph_end # treat a newline as a paragraph break
+  syntax_highlighter: rouge # syntax highlighter for code blocks
+  syntax_highlighter_opts: # syntax highlighter options
+    guess_lang: true # automatically detect the language of the code block
+    css_class: "highlight" # CSS class for code blocks
+```
 
 #### Stylesheet for syntax highlighting
 For `rouge` --> can use a [stylesheets for Pygments](https://github.com/jwarby/jekyll-pygments-themes)
