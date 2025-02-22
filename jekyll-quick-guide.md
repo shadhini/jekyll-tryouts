@@ -55,6 +55,107 @@ jekyll configuration file: `_config.yml`
 ```yaml
 # Base URL: if your site is hosted at https://username.github.io/repository-name
 baseurl: "/jekyll-tryouts"
+
+markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions to process
+# default = markdown,mkdown,mkdn,mkd,md
+
+# Markdown processor/ markdown render engine settings for the site
+markdown: kramdown # markdown render engine - kramdown 
+  # Site can be built locally using Jekyll only with kramdown as markdown processor
+kramdown: # kramdown settings https://kramdown.gettalong.org/documentation.html
+  input: GFM # markdown file input format to the kramdown processor
+    # values for the input attribute:
+      #  GFM - GitHub Flavored Markdown
+        # dependencies: 
+          # kramdown-parser-gfm gem
+          # https://github.com/kramdown/parser-gfm
+      #  Kramdown - Kramdown's default markdown format
+      #  Markdown - Standard Markdown
+      #  HTML - HTML input
+      #  KramdownParserGFM - Kramdown's GFM parser
+  hard_wrap: false # does not convert single line breaks into <br> tags
+  auto_ids: true # Kramdown automatically generates id attributes for headings 
+     # which are useful for creating anchor links to specific sections of the document
+  footnote_nr: 1 # set the starting number for footnotes in your document; default = 1
+    # useful if you need to continue footnote numbering from a previous document or 
+    # if you have specific formatting requirements
+  entity_output: as_char # how HTML entities are output in the generated HTML; default = Kramdown converts special characters to HTML entities
+    # values for the entity_output attribute:
+      #  :as_char - Output special characters as characters (e.g., < as <).
+      #  :as_name - Output special characters as named entities (e.g., < as &lt;).
+      #  :as_decimal - Output special characters as decimal entities (e.g., < as &#60;).
+      #  :as_hex - Output special characters as hexadecimal entities (e.g., < as &#x3C;)
+  toc_levels: 1..6 # set the range of heading levels to include in the table of contents
+    # default = 1..6, which includes all heading levels from 1 to 6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo # allows to specify custom characters for opening and closing single and double quotation marks
+    # values for the smart_quotes attribute:
+      #  :lsquo - Left single quote (‘)
+      #  :rsquo - Right single quote (’)
+      #  :ldquo - Left double quote (“)
+      #  :rdquo - Right double quote (”)
+  syntax_highlighter: rouge # syntax highlighter for code blocks; default = rouge
+    # values for the syntax_highlighter attribute:
+      #  :rouge - Use the Rouge syntax highlighter
+        # dependency: rouge gem
+        # stylesheet: https://jwarby.github.io/jekyll-pygments-themes/languages/ruby.html
+      #  :coderay - Use the Coderay syntax highlighter
+      #  :pygments - Use the Pygments syntax highlighter
+    # kramdown supported syntax highlighters: rouge, coderay
+  syntax_highlighter_opts: # set options for the syntax highlighter
+    css_class: highlight2 # set the CSS class for code blocks
+      # e.g: <pre class="highlight2"><code>...</code></pre>
+      # [work with rouge]
+    span: false # wrap each line of code in a span element
+    line_numbers: true # display line numbers in code blocks
+      # [work with rouge]
+    line_number_start: 1 # set the starting line number for code blocks
+    line_number_anchors: true # add anchor links to line numbers
+      # [do not work with rouge] 
+    guess_lang: true # attempt to guess the language of code blocks
+      # [work with rouge]
+    block_tabs: 2 # set the number of spaces to use for tab characters
+    block_start: "<div>" # set the starting tag for code blocks
+    block_end: "</div>" # set the ending tag for code blocks
+    block_title: "Code" # set the title for code blocks
+    block_lang: "plaintext" # set the default language for code blocks
+    block_opts: # set default options for code blocks
+      line_numbers: true # display line numbers in code blocks
+      line_number_start: 1 # set the starting line number for code blocks
+      line_number_anchors: true # add anchor links to line numbers
+      block_tabs: 2 # set the number of spaces to use for tab characters
+      block_start: "<div>" # set the starting tag for code blocks
+      block_end: "</div>" # set the ending tag for code blocks
+      block_title: "Code" # set the title for code blocks
+      block_lang: "plaintext" # set the default language for code blocks
+  enable_coderay: false # disable coderay syntax highlighting for code blocks
+  # if enable_coderay: true, then specify the coderay settings as follows
+  #  coderay:
+  #      coderay_wrap: div # wrap code blocks in a div element
+  #      coderay_line_numbers: inline # display line numbers inline with the code
+  #      coderay_line_numbers_start: 1 # set the starting line number for code blocks
+  #      coderay_tab_width: 4 # set the number of spaces to use for tab characters
+  #      coderay_bold_every: 10 # bold every 10th line number in code blocks
+  #      coderay_css: style # specify the CSS style for code blocks
+  #      coderay_default_lang: ruby # set the default language for code blocks
+  #      coderay_default_options: # set default options for code blocks
+  #      line_numbers: table # display line numbers in a table
+  #      line_number_anchors: true # add anchor links to line numbers
+  #      bold_every: 10 # bold every 10th line number
+  #      tab_width: 4 # set the number of spaces to use for tab characters
+  #      css: style # specify the CSS style for code blocks
+  gfm_quirks: # quirks for GitHub Flavored Markdown (GFM)
+    # allows you to enable or disable specific quirks when using GitHub Flavored Markdown (GFM)
+    # quirks can help you fine-tune how certain Markdown features behave to better match GitHub's rendering
+    - no_auto_typographic # disable automatic typographic replacements (e.g., smart quotes, ellipses, dashes)
+    - paragraph_end # allows paragraphs to end without a newline
+    - no_automatic_links # Disables automatic linking of URLs
+    - no_emphasis_underscore # Disables emphasis for underscores within words
+  math_engine: mathjax # set the math engine for rendering math equations
+    # values for the math_engine attribute:
+      #  :mathjax - Use the MathJax math engine
+      #  :itex - Use the iTeX math engine
+
+  
 # enable document/item output for collections
 collections:
   authors:
@@ -411,7 +512,25 @@ dependency: `rouge` gem
 
 `_config.yml`
 ```yaml
+markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions
 
+# markdown processor/ markdown render engine settings
+markdown: kramdown # markdown render engine - kramdown
+kramdown: # kramdown settings
+  input: GFM # markdown file input format
+  hard_wrap: false # does not convert single line breaks into <br> tags
+  auto_ids: true # automatically generates id attributes for headings
+  entity_output: as_char # special characters are rendered in the generated HTML as characters (e.g., < as <).
+  toc_levels: 1..6 # includes all heading levels from 1 to 6 in the table of contents
+  smart_quotes: lsquo,rsquo,ldquo,rdquo # set smart quotes to be rendered as left and right single and double quotes
+  gfm_quirks: # quirks for GitHub Flavored Markdown (GFM)
+    - no_auto_typographic # disable automatic typographic replacements
+    - paragraph_end # treat a newline as a paragraph break
+  syntax_highlighter: rouge # syntax highlighter for code blocks
+  syntax_highlighter_opts: # syntax highlighter options
+    guess_lang: true # automatically detect the language of the code block
+    css_class: "highlight" # CSS class for code blocks
+    line_numbers: true # display line numbers in code blocks
 ```
 
 stylesheets: [stylesheets for Pygments](https://github.com/jwarby/jekyll-pygments-themes)

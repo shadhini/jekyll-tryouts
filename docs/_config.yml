@@ -10,6 +10,8 @@ plugins:
 #  h_min:   1
 #  h_max:   8
 
+markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions
+
 # markdown processor/ markdown render engine settings
 markdown: kramdown # markdown render engine - kramdown
 kramdown: # kramdown settings
@@ -22,14 +24,10 @@ kramdown: # kramdown settings
   gfm_quirks: # quirks for GitHub Flavored Markdown (GFM)
     - no_auto_typographic # disable automatic typographic replacements
     - paragraph_end # treat a newline as a paragraph break
-  markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions
   syntax_highlighter: rouge # syntax highlighter for code blocks
   syntax_highlighter_opts: # syntax highlighter options
     guess_lang: true # automatically detect the language of the code block
-    line_numbers: true # display line numbers in code blocks
-    line_number_anchors: true # add anchors to line numbers in code blocks
-  syntax_highlighter_style: colorful # syntax highlighter style
-
+    css_class: "highlight" # CSS class for code blocks
 
 collections:
   authors:
