@@ -1,0 +1,70 @@
+// clipboard.js
+// JS-based `Copy` buttons for code snippets.
+:root,
+[data-bs-theme="light"] {
+  .bd-code-snippet {
+    background-color: #f8f9f9;
+  }
+}
+
+@include color_mode(dark, true) {
+    .bd-code-snippet {
+        background-color: #424949;
+    }
+}
+
+.bd-code-snippet {
+  margin: 0 ($bd-gutter-x * -.5) 1rem;
+  border: solid var(--bs-border-color);
+  border-width: 1px 0;
+  padding: 1rem;
+
+  @include media-breakpoint-up(md) {
+    margin-right: 0;
+    margin-left: 0;
+    border-width: 1px;
+    @include border-radius(var(--bs-border-radius));
+  }
+}
+
+.bd-clipboard,
+.bd-edit {
+  position: relative;
+  display: none;
+  float: right;
+
+  + .highlight {
+    margin-top: 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+}
+
+.btn-clipboard,
+.btn-edit {
+  display: block;
+  padding: .2em;
+  line-height: 1;
+  color: var(--bs-body-color);
+  background-color: var(--bd-pre-bg);
+  border: 0;
+  @include border-radius(.25rem);
+
+  &:hover {
+    color: var(--bs-link-hover-color);
+  }
+
+  &:focus {
+    z-index: 3;
+  }
+}
+
+.bi {
+  width: 0.9em;
+  height: 0.9em;
+  vertical-align: -.125em;
+  fill: currentcolor
+}
+

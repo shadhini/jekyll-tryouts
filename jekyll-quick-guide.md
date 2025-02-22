@@ -429,6 +429,20 @@ Retain files removed upon site builds:
 
 # Integrating CSS Framework
 
+## Using Bootstrap via CDN
+Bootstrap provides following CDN links:
+- `bootstrap.css`: compiled CSS file
+- `bootstrap.js`: JS file
+- `bootstrap.bundle.js`: JS file with Popper.js
+- `bootstrap.min.css`: minified compiled CSS file
+- `bootstrap.min.js`: minified JS file
+- `bootstrap.bundle.min.js`: minified JS file with Popper.js
+- `bootstrap.min.css.map` | `bootstrap.min.js.map` | `bootstrap.bundle.min.js.map`
+  - used to facilitate debugging of minified CSS and JavaScript files
+    by mapping the minified code back to the original source code
+  - useful in development environments
+
+
 ## Using Bootswatch Yeti Bootstrap Template via CDN
 
 bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti/)
@@ -475,10 +489,37 @@ to **reduce potential screen flickering** during reloading of the site.
 </html>
 ```
 
+## Mixins
+
+* Bootstrap **CDN**, only provides the **compiled CSS**.
+* To use Bootstrap's Sass mixins,
+  you need to include the Bootstrap Sass files directly in your project instead of using the CDN.
+
+#### CSS mixins
+- used to define styles that can be reused throughout the stylesheet
+- keep CSS **DRY** (`Don't Repeat Yourself`)
+
+```scss
+@mixin border-radius($radius) {
+  ...
+}
+
+.button {
+  @include border-radius(5px);
+  ...
+}
+```
+
+#### JavaScript Mixins
+- used to add properties and methods from one object to another
+- useful for sharing behavior between classes without using inheritance
+
+
 ## Other CSS styles related files
 
 `assets/js/`
 - `theme.js`: JS script for enabling switching between **_dark_** and **_light_** site color themes/modes
+- `copy-to-clipboard.js`: JS script for copying code snippets to the clipboard
 
 `_includes/footer.html`
 - web page footer
@@ -495,7 +536,7 @@ options: `kramdown` | `GFM` | `Markdown` | `HTML`
 
 `GFM`: GitHub Flavored Markdown
 
-# Style Code Blocks with Markdown Processor
+# Style Code Blocks with Markdown Processor, Clipboard.js, and Bootstrap
 
 syntax highlighters supported by Jekyll: `rouge`, `coderay`
 
@@ -507,7 +548,7 @@ If you are using a language that contains curly braces,
   * add `render_with_liquid: false` in front matter
     to **disable Liquid entirely** for a particular document
 
-## If using Rouge Syntax Highlighter
+## Syntax Highlighting with `rouge` Syntax Highlighter
 dependency: `rouge` gem
 
 `_config.yml`
@@ -535,6 +576,8 @@ kramdown: # kramdown settings
 
 stylesheets: [stylesheets for Pygments](https://github.com/jwarby/jekyll-pygments-themes)
 
+## Enable color mode changes for syntax highlighting 
+
 `_sass/mixins/_color-mode.scss`: css mixin to switch css rules between color modes
 
 `docs/_sass/_mixins.scss`: import mixins
@@ -549,6 +592,43 @@ stylesheets: [stylesheets for Pygments](https://github.com/jwarby/jekyll-pygment
 @import "mixins";
 @import "syntax-highlighting";
 ```
+
+## Add Copy to Clipboard Button to Code Blocks
+
+`_sass/_clipboard-js.scss`: styling for [clipboard.js](https://clipboardjs.com/)
+
+`_layouts/default.html`: include the bootstrap, clipboard.js, and copy-to-clipboard.js (a custom script) scripts in the layout
+```html
+<body>
+    .....
+  <!-- Bootstrap JS and Popper.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Clipboard.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+  <!-- Include the copy-to-clipboard script for code snippets-->
+  <script src="{{ '/assets/js/copy-to-clipboard.js' | relative_url }}"></script>
+</body>
+```
+
+`assets/js/copy-to-clipboard.js`: script to enable copying code snippets to the clipboard
+
+`_sass/mixins/_border-radius.scss` | `_sass/mixins/_breakpoints.scss`:
+- [bootstrap mixins](https://github.com/twbs/bootstrap/tree/main/scss/mixins) required for `copy-to-clipboard.js`
+
+`_sass/_mixins.scss`: import bootstrap mixins
+
+`_sass/_variables.scss`: define variables required for the bootstrap mixins
+
+`assets/css/styles.scss`: import the mixins, variables and clipboard-js styles
+```scss
+---
+---
+@import "variables";
+@import "mixins";
+@import "clipboard-js";
+....
+```
+
 
 # Reusable Templates
 
@@ -643,3 +723,33 @@ main page: `tech-catlog.html`
   ---
   ```
 
+## SVG Icons
+
+`_includes/svg-icons.html`: include all the SVG icons in a common html file
+```html
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="clipboard" viewBox="0 0 16 16">
+    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"></path>
+    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"></path>
+  </symbol>
+  <symbol>
+    ....
+  </symbol>
+  ...
+</svg>
+```
+
+`_layouts/default.html`: include the html with SVG icons in the main layout
+```html
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+{% include head.html %}
+{% include svg-icons.html %}
+.....
+</html>
+```
+
+`<CODE_SNIPPET_WITH_SVG_ICON>.html`: reusing the SVG icon wherever needed
+```html
+<svg class="bi" role="img" aria-label="Copy"><use xlink:href="#clipboard"/></svg>
+```

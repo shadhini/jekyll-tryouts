@@ -1,0 +1,18 @@
+// Variables required for Bootstrap mixins -----------------------
+// Bootstrap default grid breakpoints
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px
+) !default;
+
+// Enable the rounded border-radius utility
+$enable-rounded: true !default;
+
+// Border gutter spacing
+$bd-gutter-x: 3rem;
+
+// ----------------------------------------------------------------

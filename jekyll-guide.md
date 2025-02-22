@@ -857,7 +857,19 @@ offering flexibility but leading to verbose code.
 for building responsive, mobile-first websites quickly.
 
 
-#### Using Bootstrap Template via CDN
+### 12.1. Using Bootstrap Template via CDN
+Bootstrap provides following CDN links:
+- `bootstrap.css`: compiled CSS file
+- `bootstrap.js`: JS file
+- `bootstrap.bundle.js`: JS file with Popper.js
+- `bootstrap.min.css`: minified compiled CSS file
+- `popper.min.js`: minified Popper.js
+- `bootstrap.min.js`: minified JS file
+- `bootstrap.bundle.min.js`: minified JS file with Popper.js
+- `bootstrap.min.css.map` | `bootstrap.min.js.map` | `bootstrap.bundle.min.js.map`
+  - used to facilitate debugging of minified CSS and JavaScript files
+    by mapping the minified code back to the original source code
+  - useful in development environments
 
 bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti/)
 
@@ -903,7 +915,7 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 </html>
 ```
 
-### Enable toggling Site Color Mode between `dark` and `light`
+### 12.2. Enable toggling Site Color Mode between `dark` and `light`
 `_includes/navigation.html`
 ```html
 .....
@@ -951,7 +963,71 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 - It is suggested to include the JavaScript to toggle theme/color mode **at the top of your page** 
 to **reduce potential screen flickering** during reloading of your site. 
 
-## 12. Monitor Usage
+### 12.3. mixins
+
+- programming technique used to add functionality to objects or classes
+- enable code reuse and modularity
+- commonly used in CSS preprocessors like `Sass` and `Less`
+
+##### Note
+* If you're using Bootstrap from a **CDN**, you won't have access to the **Bootstrap Sass mixins** 
+because the **CDN** only provides the **compiled CSS**. 
+* To use Bootstrap's Sass mixins, 
+you need to include the Bootstrap Sass files directly in your project instead of using the CDN.
+
+
+#### CSS mixins
+- to define styles that can be reused throughout your stylesheet
+- helps to keep CSS **DRY** (`Don't Repeat Yourself`)
+
+```scss
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+.button {
+  @include border-radius(5px);
+  background-color: blue;
+  color: white;
+  padding: 10px;
+}
+```
+
+#### JavaScript Mixins
+- to add properties and methods from one object to another
+- useful for sharing behavior between classes without using inheritance
+
+```js
+const canFly = {
+  fly() {
+    console.log("Flying high!");
+  }
+};
+
+const canSwim = {
+  swim() {
+    console.log("Swimming in the water!");
+  }
+};
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+Object.assign(Animal.prototype, canFly, canSwim);
+
+const duck = new Animal("Duck");
+duck.fly();  // Output: Flying high!
+duck.swim(); // Output: Swimming in the water!
+```
+
+
+## 13. Monitor Usage
 
 #### To save bandwidth when using GitHub Pages
 * Regularly monitor bandwidth usage through the GitHub Pages settings to ensure you are within the limits.
@@ -999,8 +1075,6 @@ to **reduce potential screen flickering** during reloading of your site.
 - GitHub's own Markdown processor used to render GFM throughout GitHub
 - By default, Jekyll uses the GFM processor for Kramdown
 
-## Code Blocks Styling / Highlighting
-
 options supported by Jekyll: `rouge`, `coderay`
 
 #### Handling Liquid Tags in Code Blocks
@@ -1009,7 +1083,7 @@ options supported by Jekyll: `rouge`, `coderay`
 * Since Jekyll 4.0 , you can add `render_with_liquid: false` in front matter
   to **disable Liquid entirely** for a particular document.
 
-### If using `rouge` for syntax highlighting
+#### 14.1. Code Blocks Styling / Highlighting with `rouge`
 
      gem install rouge
 
@@ -1037,7 +1111,7 @@ kramdown: # kramdown settings
     css_class: "highlight" # CSS class for code blocks
 ```
 
-#### Stylesheet for syntax highlighting
+##### Stylesheet for syntax highlighting
 For `rouge` --> can use a [stylesheets for Pygments](https://github.com/jwarby/jekyll-pygments-themes)
 
 
@@ -1051,7 +1125,7 @@ For `rouge` --> can use a [stylesheets for Pygments](https://github.com/jwarby/j
 @import "<STYLESHEET_NAME>.css";
 ```
 
-##### To enable color mode changes
+### 14.2. Enable color mode changes for Syntax Highlighting
 
 `_sass/mixins/_color-mode.scss`: css mixin to switch css rules between color modes 
 ```scss
@@ -1098,3 +1172,40 @@ For `rouge` --> can use a [stylesheets for Pygments](https://github.com/jwarby/j
 @import "mixins";
 @import "syntax-highlighting";
 ```
+
+### 14.3. Add copy to clipboard button to code blocks
+
+`_sass/_clipboard-js.scss`: styling for [clipboard.js](https://clipboardjs.com/)
+
+`_layouts/default.html`: include the bootstrap, clipboard.js, and copy-to-clipboard.js (a custom script) scripts in the layout
+```html
+<body>
+    .....
+  <!-- Bootstrap JS and Popper.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Clipboard.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+  <!-- Include the copy-to-clipboard script for code snippets-->
+  <script src="{{ '/assets/js/copy-to-clipboard.js' | relative_url }}"></script>
+</body>
+```
+
+`assets/js/copy-to-clipboard.js`: script to enable copying code snippets to the clipboard
+
+`_sass/mixins/_border-radius.scss` | `_sass/mixins/_breakpoints.scss`:
+- [bootstrap mixins](https://github.com/twbs/bootstrap/tree/main/scss/mixins) required for `copy-to-clipboard.js`
+
+`_sass/_mixins.scss`: import bootstrap mixins
+
+`_sass/_variables.scss`: define variables required for the bootstrap mixins
+
+`assets/css/styles.scss`: import the mixins, variables and clipboard-js styles
+```scss
+---
+---
+@import "variables";
+@import "mixins";
+@import "clipboard-js";
+....
+```
+
