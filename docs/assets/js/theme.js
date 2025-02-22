@@ -1,3 +1,8 @@
+/*!
+ * Color mode toggler for Bootstrap
+ * This changes the color mode by changing the "data-bs-theme" attribute on the root <html> element.
+ * If "data-bs-theme" attribute is set to specific value in any other html element (e.g nav-bar), it won't be affected.
+ */
 (() => {
     'use strict'
 

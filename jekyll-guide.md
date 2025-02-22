@@ -948,6 +948,8 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 ```
 
 `/assets/js/theme.js`
+- It is suggested to include the JavaScript to toggle theme/color mode **at the top of your page** 
+to **reduce potential screen flickering** during reloading of your site. 
 
 ## 12. Monitor Usage
 

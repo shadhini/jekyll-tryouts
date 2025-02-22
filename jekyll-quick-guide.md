@@ -358,6 +358,8 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
     <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
 </head>
 ```
+- The script to toggle the theme/color mode is included **at the top of the page** 
+to **reduce potential screen flickering** during reloading of the site.
 
 `_layouts/default.html`
 ```html
