@@ -10,7 +10,7 @@ const btnHtml = [
   '</div>'
 ].join('')
 
-document.querySelectorAll('.highlighter-rouge')
+document.querySelectorAll('div.highlighter-rouge')
     .forEach(element => {
       if (!element.closest('.bd-example-snippet')) { // Ignore examples made be shortcode
         element.insertAdjacentHTML('beforebegin', btnHtml)

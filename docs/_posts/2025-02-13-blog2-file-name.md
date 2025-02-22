@@ -9,6 +9,8 @@ render_with_liquid: false
 
 This is an example of a blog post.
 
+here is a single back tick snippet: `single backtick`
+
 ```markdown
 <!-- Markdown Code Snippet -->
 # Markdown Code Snippet

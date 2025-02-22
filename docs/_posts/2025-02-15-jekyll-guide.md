@@ -13,7 +13,7 @@ render_with_liquid: false
 ## 1. Setup
 
 ### 1.1. Installation
-* Install `Ruby on your machine, if not installed
+* Install `Ruby` on your machine, if not installed
     ```bash
     brew install ruby
     ruby -v
