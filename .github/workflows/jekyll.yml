@@ -48,10 +48,14 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           generator_config_file: docs/_config.yml
+      - name: Setup dependencies
+        run: |
+          cd docs  # Navigate to the subdirectory containing your Jekyll site
+          bundle install
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: |
-          cd docs
+          cd docs # Navigate to the subdirectory containing your Jekyll site
           bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --source "${{ steps.pages.outputs.base_path }}/docs" --destination "${{ steps.pages.outputs.base_path }}/docs/_site"
         env:
           JEKYLL_ENV: production
