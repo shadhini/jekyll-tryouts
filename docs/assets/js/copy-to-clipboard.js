@@ -3,7 +3,7 @@ const btnTitle = 'Copy to clipboard'
 const btnHtml = [
   '<div class="bd-code-snippet">',
   '  <div class="bd-clipboard">',
-  '    <button type="button" class="btn-clipboard" title="${btnTitle}">',
+  '    <button type="button" class="btn-clipboard" title="Copy to clipboard">',
   '      <svg class="bi" role="img" aria-label="Copy"><use xlink:href="#clipboard"/></svg>',
   '    </button>',
   '  </div>',
