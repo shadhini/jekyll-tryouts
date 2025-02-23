@@ -43,9 +43,9 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
       - name: Setup Pages
+        # https://github.com/actions/configure-pages/blob/main/action.yml
         id: pages
         uses: actions/configure-pages@v5
-        # https://github.com/actions/configure-pages/blob/main/action.yml
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: |
@@ -53,7 +53,7 @@ jobs:
           --baseurl "${{ steps.pages.outputs.base_path }}" \
           --source "${{ steps.pages.outputs.base_path }}/docs" \
           --destination "${{ steps.pages.outputs.base_path }}/docs/_site"
-         env:
+        env:
           JEKYLL_ENV: production
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
