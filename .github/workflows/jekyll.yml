@@ -46,8 +46,6 @@ jobs:
         # https://github.com/actions/configure-pages/blob/main/action.yml
         id: pages
         uses: actions/configure-pages@v5
-        with:
-          generator_config_file: docs/_config.yml
       - name: Setup dependencies
         run: |
           cd docs  # Navigate to the subdirectory containing your Jekyll site
@@ -56,7 +54,7 @@ jobs:
         # Outputs to the './_site' directory by default
         run: |
           cd docs # Navigate to the subdirectory containing your Jekyll site
-          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --source "${{ steps.pages.outputs.base_path }}/docs" --destination "${{ steps.pages.outputs.base_path }}/docs/_site"
+          bundle exec jekyll build --config "${{ steps.pages.outputs.base_path }}/docs/_config.yml" --baseurl "${{ steps.pages.outputs.base_path }}" --source "${{ steps.pages.outputs.base_path }}/docs" --destination "${{ steps.pages.outputs.base_path }}/docs/_site"
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
