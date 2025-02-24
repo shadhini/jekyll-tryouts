@@ -6,3 +6,4 @@
 **/.jekyll-cache/
 **/Gemfile
 **/Gemfile.lock
+/docs/dev-purposes/

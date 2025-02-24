@@ -1,8 +1,8 @@
 baseurl: "/jekyll-tryouts"
 title: "Jekyll Tryouts" # used to set site title / name
 
-plugins:
-  - jekyll-include-cache
+#plugins:
+#  - jekyll-include-cache
 
 # table of content
 #toc:
@@ -47,7 +47,7 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "post"
+      layout: "note"
   - scope:
       path: ""
     values:
