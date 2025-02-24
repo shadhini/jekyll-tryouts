@@ -1082,6 +1082,9 @@ options supported by Jekyll: `rouge`, `coderay`
   you will likely need to place `{% raw %}` and `{% endraw %}` tags around your code.
 * Since Jekyll 4.0 , you can add `render_with_liquid: false` in front matter
   to **disable Liquid entirely** for a particular document.
+* As of now, Github Pages uses Jekyll 3.10.0; to use `render_with_liquid` attribute in front matter 
+you'd have to build and deploy github pages using custom workflow 
+with github actions and newer gem set (e.g: jekyll 4.4.1 gem).
 
 #### 14.1. Code Blocks Styling / Highlighting with `rouge`
 
@@ -1208,4 +1211,140 @@ For `rouge` --> can use a [stylesheets for Pygments](https://github.com/jwarby/j
 @import "clipboard-js";
 ....
 ```
+
+## 15. Github Actions to build and deploy Jekyll site with custom environment and gem versions
+
+The default action workflow supports only [these](https://pages.github.com/versions/) dependencies.
+
+If you need to use a different version of Jekyll or any other gem, you can create a custom workflow.
+
+### 15.1. Prerequisites
+Mention correct versions to be used in the `Gemfile`.
+
+```ruby
+# Gemfile
+
+source "https://rubygems.org"
+
+gem "jekyll", "~> 4.4.1"
+gem "kramdown-parser-gfm", "~> 1.1.0"
+gem "rouge", "~> 4.3.0"
+```
+
+### 15.2. Github Actions Workflow
+
+**starter workflow** provided by GitHub Actions for Jekyll sites: [starter workflow for Github Pages](https://github.com/actions/starter-workflows/blob/main/pages/jekyll.yml)
+- This action will be triggered on every push to the default branch and will expect Gemfile in the root directory.
+
+**[Github Environment Protection Rules](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment#environment-protection-rules)**: 
+limit which branches can deploy to an environment 
+- When a job tries to deploy to an environment with Deployment branches configured
+Actions will check the value of `github.ref` against the configuration and 
+if it does not match the job will fail and the run will stop.
+- Deployment branches rules 
+  - All branches – Any branch in the repository can deploy 
+  - Protected branches – Only branches with protection rules 
+  - Selected branches – Branches matching a set of name patterns
+
+**[Github Branch Protection Rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule#about-branch-protection-rules)**
+
+preset actions: [actions](https://github.com/actions)
+
+workflow file location in repo: `.github/workflows/jekyll.yml`
+
+#### Setting up the Action
+
+git repo -> `Settings` -> `Pages` -> `Build and deployment` -> `Source` 
+- change to `GitHub Actions` (previously set to **"Deploy from a branch"**)
+
+git repo -> `Actions` -> `New workflow` -> search for `Jekyll` -> 
+- `Configure` under `Jekyll workflow` (**not** _GitHub Pages Jekyll_ workflow )
+  - Review the changes
+    - specially if you are deploying from a subdirectory, 
+    then **jekyll build command options** and **config file path** should be updated
+    ```yaml
+      # Sample workflow for building and deploying a Jekyll site to GitHub Pages
+      name: Deploy Jekyll Tryouts site to Pages
+    
+      on:
+        # Runs on pushes targeting the default branch
+        push:
+          branches: ["main"]
+    
+        # Allows you to run this workflow manually from the Actions tab
+        workflow_dispatch:
+    
+      # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+      permissions:
+        contents: read
+        pages: write
+        id-token: write
+    
+      # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+      # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+      concurrency:
+        group: "pages"
+        cancel-in-progress: false
+    
+      jobs:
+        # Build job
+        build:
+          runs-on: ubuntu-latest
+          steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              # clone the repository to the runner
+              # making all of the repository files available for the following steps in the workflow
+            - name: Setup Ruby
+              # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0
+              uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4
+              with:
+                ruby-version: '3.1' # Not needed with a .ruby-version file
+                bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+                cache-version: 0 # Increment this number if you need to re-download cached gems
+            - name: Setup Pages
+              # https://github.com/actions/configure-pages/blob/main/action.yml
+              id: pages
+              uses: actions/configure-pages@v5
+            - name: Setup dependencies
+              run: |
+                cd docs  # Navigate to the subdirectory containing the Jekyll site
+                bundle install
+            - name: Build with Jekyll
+              # Outputs to the './_site' directory by default
+              run: |
+                cd docs # Navigate to the subdirectory containing the Jekyll site
+                bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+              env:
+                JEKYLL_ENV: production
+            - name: Upload artifact
+              # Automatically uploads an artifact from the './_site' directory by default
+              uses: actions/upload-pages-artifact@v3
+              with:
+                path: 'docs/_site'
+      
+        # Deployment job
+        deploy:
+          environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+          runs-on: ubuntu-latest
+          needs: build
+          steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
+    ```
+  
+- `Commit changes`
+
+
+#### Build and Deploy
+
+git repo -> `Actions` -> `Deployments` -> view live site via deployed site URL
+
+
+### 15.3. Workflow Management
+`Caching` — The `ruby/setup-ruby` action makes it possible to cache installed gems automatically 
+instead of having to download the bundle on each build.
 

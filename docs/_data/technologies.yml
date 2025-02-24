@@ -10,3 +10,9 @@ tailwind-css:
       ref: "css-frameworks"
     - name: "Web Development Technology"
       ref: "web-development-technologies"
+jekyll:
+  topics:
+      - name: "Static Site Generator"
+        ref: "static-site-generators"
+      - name: "Web Development Technology"
+        ref: "web-development-technologies"

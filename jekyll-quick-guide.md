@@ -629,6 +629,64 @@ stylesheets: [stylesheets for Pygments](https://github.com/jwarby/jekyll-pygment
 ....
 ```
 
+# Custom Github Actions workflow for building and deploying Jekyll site with custom environment and gem versions
+
+dependencies supported by default github jekyll action: https://pages.github.com/versions/
+
+## Prerequisites
+`Gemfile` with correct versions of dependencies
+
+```ruby
+# Gemfile
+
+source "https://rubygems.org"
+
+gem "jekyll", "~> 4.4.1"
+gem "kramdown-parser-gfm", "~> 1.1.0"
+gem "rouge", "~> 4.3.0"
+```
+
+## Github Actions Workflow
+
+**starter workflow** for Jekyll sites: https://github.com/actions/starter-workflows/blob/main/pages/jekyll.yml
+- triggered on every push to the default branch
+- expect Gemfile in the root directory
+
+
+### Github Action workflows
+- [preset reusable actions](https://github.com/actions)
+- **[Github Environment Protection Rules](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment#environment-protection-rules)**:
+  limit which branches can deploy to an environment
+  - Deployment branches rules
+    - All branches can deploy
+    - Protected branches (with protection rules) can deploy
+    - Selected branches (matching a set of name patterns) can deploy
+- **[Github Branch Protection Rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule#about-branch-protection-rules)**
+- workflow file location in repo: `.github/workflows/jekyll.yml`
+
+### Setting up the Action
+
+git repo -> `Settings` -> `Pages` -> `Build and deployment` -> `Source`
+- change to `GitHub Actions`
+
+git repo -> `Actions` -> `New workflow` -> search for `Jekyll` ->
+- `Configure` under `Jekyll workflow` (**not** _GitHub Pages Jekyll_ workflow )
+- Review the changes
+  - specially if you are deploying from a subdirectory,
+    then **jekyll build command options** and **config file path** should be updated
+  - `.github/workflows/jekyll.yml`
+
+- `Commit changes`
+
+
+### Build and Deploy
+
+git repo -> `Actions` -> `Deployments` -> view live site via deployed site URL
+
+
+## Workflow Management
+`Caching` — The `ruby/setup-ruby` action makes it possible to cache installed gems automatically
+instead of having to download the bundle on each build.
 
 # Reusable Templates
 
