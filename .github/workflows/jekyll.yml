@@ -46,8 +46,6 @@ jobs:
         # https://github.com/actions/configure-pages/blob/main/action.yml
         id: pages
         uses: actions/configure-pages@v5
-        with:
-          generator_config_file: docs/_config.yml
       - name: Setup dependencies
         run: |
           cd docs  # Navigate to the subdirectory containing the Jekyll site
