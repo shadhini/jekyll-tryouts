@@ -960,6 +960,87 @@ bootstrap template: https://bootswatch.com/ : [Yeti](https://bootswatch.com/yeti
 ```
 
 `/assets/js/theme.js`
+```js
+/*!
+ * Color mode toggler for Bootstrap
+ * This changes the color mode by changing the "data-bs-theme" attribute on the root <html> element.
+ * If "data-bs-theme" attribute is set to specific value in any other html element (e.g nav-bar), it won't be affected.
+ */
+(() => {
+    'use strict'
+
+    const getStoredTheme = () => localStorage.getItem('theme')
+    const setStoredTheme = theme => localStorage.setItem('theme', theme)
+
+    const getPreferredTheme = () => {
+        const storedTheme = getStoredTheme()
+        if (storedTheme) {
+            return storedTheme
+        }
+
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
+
+    const setTheme = theme => {
+        if (theme === 'auto') {
+            document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
+        } else {
+            document.documentElement.setAttribute('data-bs-theme', theme)
+        }
+    }
+
+    setTheme(getPreferredTheme())
+
+    const showActiveTheme = (theme, focus = false) => {
+        const themeSwitcher = document.querySelector('#bd-theme')
+
+        if (!themeSwitcher) {
+            return
+        }
+
+        const themeSwitcherText = document.querySelector('#bd-theme-text')
+        const activeThemeIcon = document.querySelector('.theme-icon-active use')
+        const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+        const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href')
+
+        document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+            element.classList.remove('active')
+            element.setAttribute('aria-pressed', 'false')
+        })
+
+        btnToActive.classList.add('active')
+        btnToActive.setAttribute('aria-pressed', 'true')
+        activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+        const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
+        themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
+
+        if (focus) {
+            themeSwitcher.focus()
+        }
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        const storedTheme = getStoredTheme()
+        if (storedTheme !== 'light' && storedTheme !== 'dark') {
+            setTheme(getPreferredTheme())
+        }
+    })
+
+    window.addEventListener('DOMContentLoaded', () => {
+        showActiveTheme(getPreferredTheme())
+
+        document.querySelectorAll('[data-bs-theme-value]')
+            .forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const theme = toggle.getAttribute('data-bs-theme-value')
+                    setStoredTheme(theme)
+                    setTheme(theme)
+                    showActiveTheme(theme, true)
+                })
+            })
+    })
+})()
+```
 - It is suggested to include the JavaScript to toggle theme/color mode **at the top of your page** 
 to **reduce potential screen flickering** during reloading of your site. 
 
@@ -1194,13 +1275,114 @@ For `rouge` --> can use a [stylesheets for Pygments](https://github.com/jwarby/j
 ```
 
 `assets/js/copy-to-clipboard.js`: script to enable copying code snippets to the clipboard
+```js
+const btnTitle = 'Copy to clipboard'
+
+const btnHtml = [
+  '<div class="bd-code-snippet">',
+  '  <div class="bd-clipboard">',
+  '    <button type="button" class="btn-clipboard" title="Copy to clipboard">',
+  '      <svg class="bi" role="img" aria-label="Copy"><use xlink:href="#clipboard"/></svg>',
+  '    </button>',
+  '  </div>',
+  '</div>'
+].join('')
+
+document.querySelectorAll('div.highlighter-rouge')
+    .forEach(element => {
+      if (!element.closest('.bd-example-snippet')) { // Ignore examples made be shortcode
+        element.insertAdjacentHTML('beforebegin', btnHtml)
+        element.previousElementSibling.append(element)
+      }
+    })
+
+document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    .forEach(tooltip => {
+      new bootstrap.Tooltip(tooltip)
+    })
+
+document.querySelectorAll('.content [href="#"]')
+    .forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault()
+      })
+    })
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('.btn-clipboard').forEach(btn => {
+    bootstrap.Tooltip.getOrCreateInstance(btn, {btnTitle})
+  })
+})
+
+const clipboard = new ClipboardJS('.btn-clipboard', {
+  target: trigger => trigger.closest('.bd-code-snippet').querySelector('.highlight'),
+  text: trigger => trigger.closest('.bd-code-snippet').querySelector('.highlight').textContent.trimEnd()
+})
+
+clipboard.on('success', event => {
+  const iconFirstChild = event.trigger.querySelector('.bi').firstElementChild
+  const tooltipBtn = bootstrap.Tooltip.getInstance(event.trigger)
+  const namespace = 'http://www.w3.org/1999/xlink'
+  const originalXhref = iconFirstChild.getAttributeNS(namespace, 'href')
+  const originalTitle = event.trigger.title
+
+  tooltipBtn.setContent({'.tooltip-inner': 'Copied!'})
+  event.trigger.addEventListener('hidden.bs.tooltip', () => {
+    tooltipBtn.setContent({'.tooltip-inner': btnTitle})
+  }, {once: true})
+  event.clearSelection()
+  iconFirstChild.setAttributeNS(namespace, 'href', originalXhref.replace('clipboard', 'check2'))
+
+  setTimeout(() => {
+    iconFirstChild.setAttributeNS(namespace, 'href', originalXhref)
+    event.trigger.title = originalTitle
+  }, 2000)
+})
+
+clipboard.on('error', event => {
+  const modifierKey = /mac/i.test(navigator.userAgent) ? '\u2318' : 'Ctrl-'
+  const fallbackMsg = `Press ${modifierKey}C to copy`
+  const tooltipBtn = bootstrap.Tooltip.getInstance(event.trigger)
+
+  tooltipBtn.setContent({'.tooltip-inner': fallbackMsg})
+  event.trigger.addEventListener('hidden.bs.tooltip', () => {
+    tooltipBtn.setContent({'.tooltip-inner': btnTitle})
+  }, {once: true})
+})
+
+```
 
 `_sass/mixins/_border-radius.scss` | `_sass/mixins/_breakpoints.scss`:
 - [bootstrap mixins](https://github.com/twbs/bootstrap/tree/main/scss/mixins) required for `copy-to-clipboard.js`
 
 `_sass/_mixins.scss`: import bootstrap mixins
+```scss
+.....
+@import "mixins/border-radius";
+@import "mixins/breakpoints";
+```
 
 `_sass/_variables.scss`: define variables required for the bootstrap mixins
+```scss
+// Variables required for Bootstrap mixins -----------------------
+// Bootstrap default grid breakpoints
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px
+) !default;
+
+// Enable the rounded border-radius utility
+$enable-rounded: true !default;
+
+// Border gutter spacing
+$bd-gutter-x: 3rem;
+
+// ----------------------------------------------------------------
+```
 
 `assets/css/styles.scss`: import the mixins, variables and clipboard-js styles
 ```scss
