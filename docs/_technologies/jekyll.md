@@ -2,6 +2,7 @@
 layout: doc
 render_with_liquid: false
 ref: jekyll
+toc: true
 ---
 # Jekyll Guide
 

@@ -1,20 +1,9 @@
-<!doctype html>
-<html lang="en" data-bs-theme="light">
-{% include head.html %}
-{% include svg-icons.html %}
-<body>
-{% include navigation.html %}
+---
+layout: base
+---
+<!-- Default Layout -->
 <div class="container">
     <br>
-    {{ content }}
+    {{ content }} <!-- This is where the content of the page(html or markdown page) will be displayed -->
 </div>
-{% include footer.html %}
 
-<!-- Bootstrap JS and Popper.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<!-- Clipboard.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
-<!-- Include the copy-to-clipboard script for code snippets-->
-<script src="{{ '/assets/js/copy-to-clipboard.js' | relative_url }}"></script>
-</body>
-</html>

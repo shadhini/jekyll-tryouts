@@ -1,22 +1,21 @@
 <!doctype html>
+<!-- Base Layout -->
 <html lang="en" data-bs-theme="light">
-    {% include head.html %}
+    <head>
+        {% include head.html %}
+    </head>
     <body>
-        <!-- SVG Icons ----------------------------------------------------------------------------------------- -->
-        {% include svg-icons.html %}
-        <!-- Navigation Bar ---------------------------------------------------------------------------------------- -->
+<!--    {% if page.toc == true %} data-bs-spy="scroll" data-bs-target="#TableOfContents" {% endif %}-->
+
+        <!-- Navigation Bar ------------------------------------------------------------------------------------ -->
         {% include navigation.html %}
 
-        <!-- Cover Image ------------------------------------------------------------------------------------------- -->
-        <div class="col-12 cover-page-container">
-            <img src="assets/images/landing-page-cover-image.png" alt="Cover">
-        </div>
+        <!-- SVG Icons ----------------------------------------------------------------------------------------- -->
+        {% include svg-icons.html %}
+
 
         <!-- Rest of the Content ----------------------------------------------------------------------------------- -->
-        <div class="container">
-            <br>
-            {{ content }}
-        </div>
+        {{ content }}
 
         <footer>
             <!-- Footer -------------------------------------------------------------------------------------------- -->
