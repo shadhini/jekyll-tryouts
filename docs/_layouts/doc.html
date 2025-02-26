@@ -38,7 +38,7 @@ layout: base
             </div>
         </div>
 
-        <div class="bd-content ps-lg-2">
+        <div class="bd-content ps-lg-2" {% if page.toc == true %} data-bs-spy="scroll" data-bs-target="#TableOfContents" tabindex="0" {% endif %}>
             {{ content }}
         </div>
     </main>

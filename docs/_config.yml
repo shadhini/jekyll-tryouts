@@ -18,6 +18,11 @@ kramdown: # kramdown settings
   input: GFM # markdown file input format
   hard_wrap: false # does not convert single line breaks into <br> tags
   auto_ids: true # automatically generates id attributes for headings
+  auto_id_prefix: "id-" # prefix for automatically generated id attributes
+    # Kramdown does not strip preceding numbers from generated header IDs when GFM is used as the input format.
+    # query selector in scrollspy.js throws a syntax error, if generated IDs start with a digit
+    #     as CSS selectors cannot start with a digit.
+    # To avoid this, we can set auto_id_prefix to "id-" to ensure that all generated IDs start with a letter.
   entity_output: as_char # special characters are rendered in the generated HTML as characters (e.g., < as <).
   toc_levels: 1..6 # includes all heading levels from 1 to 6 in the table of contents
   smart_quotes: lsquo,rsquo,ldquo,rdquo # set smart quotes to be rendered as left and right single and double quotes
