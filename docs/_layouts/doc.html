@@ -2,6 +2,7 @@
 layout: base
 ---
 <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+    <!-- Left Sidebar -->
     <aside class="bd-sidebar" >
         <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel" data-bs-scroll="true">
             <div class="offcanvas-header border-bottom">
@@ -15,6 +16,7 @@ layout: base
     </aside>
 
     <main class="bd-main order-1">
+        <!-- View on GitHub: Link to raw file on Github -->
         <div class="bd-intro pt-2 ps-lg-2">
             <div class="d-md-flex flex-md-row-reverse align-items-center justify-content-between">
                 <div class="mb-3 mb-md-0 d-flex text-nowrap"><a class="btn btn-sm btn-bd-light rounded-2" href="https://github.com/shadhini/jekyll-tryouts/blob/main/docs/{{ page.path }}" title="View and edit this file on GitHub" target="_blank" rel="noopener">
@@ -24,6 +26,7 @@ layout: base
             </div>
         </div>
 
+        <!-- Table of Content -->
         <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary">
             <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents">
                 On this page
@@ -33,7 +36,7 @@ layout: base
             <hr class="d-none d-md-block my-2 ms-3">
             <div class="collapse bd-toc-collapse" id="tocContents">
                 <nav id="TableOfContents">
-                    {% include toc.html html=content %}
+                    {% include toc.html html=content h_min=1 h_max=8 item_class="nav-item" anchor_class="nav-link" %}
                 </nav>
             </div>
         </div>
