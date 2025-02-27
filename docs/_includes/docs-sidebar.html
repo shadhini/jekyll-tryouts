@@ -13,7 +13,7 @@
             {% if group_slug == "home" %}
             {% assign href = site.baseurl | append: '/' %}
             {% else %}
-            {% assign href = site.baseurl | append: '/' | append: group_slug | append: '/' %}
+            {% assign href = site.baseurl | append: '/' | append: group_slug %}
             {% endif %}
             <a href="{{ href }}" class="bd-links-group">
                 {{ group.title }}
@@ -30,7 +30,7 @@
                 {% if page.slug == doc_slug %}
                     {% assign is_active = true %}
                 {% endif %}
-                {% assign href =  site.baseurl | append: '/' | append: group_slug | append: '/' | append: doc_slug | append: '/' %}
+                {% assign href =  site.baseurl | append: '/' | append: group_slug | append: '/' | append: doc_slug %}
                 <li>
                     <a href="{{ href }}" class="bd-links-link d-inline-block rounded{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>
                         {{ doc.title }}
