@@ -3,6 +3,7 @@ layout: base
 ---
 <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
     <!-- Left Sidebar -->
+    {% if page.show_sidebar == true %}
     <aside class="bd-sidebar" >
         <div class="offcanvas-lg offcanvas-start" tabindex="-1" id="bdSidebar" aria-labelledby="bdSidebarOffcanvasLabel" data-bs-scroll="true">
             <div class="offcanvas-header border-bottom">
@@ -14,6 +15,7 @@ layout: base
             </div>
         </div>
     </aside>
+    {% endif %}
 
     <main class="bd-main order-1">
         <!-- View on GitHub: Link to raw file on Github -->
@@ -26,6 +28,7 @@ layout: base
             </div>
         </div>
 
+        {% if page.toc == true %}
         <!-- Table of Content -->
         <div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary">
             <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents">
@@ -40,6 +43,7 @@ layout: base
                 </nav>
             </div>
         </div>
+        {% endif %}
 
         <div class="bd-content ps-lg-2" {% if page.toc == true %} data-bs-spy="scroll" data-bs-target="#TableOfContents" tabindex="0" {% endif %}>
             {{ content }}

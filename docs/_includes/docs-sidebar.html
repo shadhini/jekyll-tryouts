@@ -1,49 +1,46 @@
-<!-- Docs Sidebar -->
-<!-- Under Development -->
+<!-- Common Docs Sidebar -->
 <nav class="bd-links w-100" id="bd-docs-nav" aria-label="Docs navigation">
-    {% assign url_parts = page.url | split: '/' %}
-    {% assign page_slug = url_parts | slice: -2, 1 | first %}
 
     <ul class="bd-links-nav list-unstyled mb-0 pb-3 pb-md-2 pe-lg-2">
         {% for group in site.data.sidebar %}
-        {% assign link = group.title %}
-        {% assign link_slug = link | handleize %}
+        <!-- Assign url friendly slug of the group title as the group slug -->
+        {% assign group_slug = group.title | slugify %}
 
-        {% if group.pages %}
-        {% assign link = group.pages[0] %}
-        {% assign link_slug = link.title | handleize %}
-        {% endif %}
-
-        {% assign group_slug = group.title | handleize %}
-        {% assign is_active_group = page.group == group_slug %}
+        <strong class="bd-links-heading d-flex w-100 align-items-top fw-semibold">
+            {% if group.icon %}
+            <i class="bi me-2 bi-{{ group.icon }}" {% if group.icon_color %}style="color: var(--bs-{{ group.icon_color }});"{% endif %}></i>
+            {% endif %}
+            {% if group_slug == "home" %}
+            {% assign href = site.baseurl | append: '/' %}
+            {% else %}
+            {% assign href = site.baseurl | append: '/' | append: group_slug | append: '/' %}
+            {% endif %}
+            <a href="{{ href }}" class="bd-links-group">
+                {{ group.title }}
+            </a>
+        </strong>
 
         {% if group.pages %}
         <li class="bd-links-group py-2">
-            <strong class="bd-links-heading d-flex w-100 align-items-center fw-semibold">
-                {% if group.icon %}
-                <svg class="bi me-2"{% if group.icon_color %} style="color: var(--bs-{{ group.icon_color }});"{% endif %} aria-hidden="true"><use xlink:href="#{{ group.icon }}"></use></svg>
-                {% endif %}
-                {{ group.title }}
-            </strong>
-
             <ul class="list-unstyled fw-normal pb-2 small">
                 {% for doc in group.pages %}
-                {% assign doc_slug = doc.title | handleize %}
-                {% assign is_active = is_active_group and (page_slug == doc_slug) %}
-                {% assign href = '/docs/' | append: site.params.docs_version | append: '/' | append: group_slug | append: '/' | append: doc_slug | append: '/' %}
-                <li><a href="{{ href }}" class="bd-links-link d-inline-block rounded{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>{{ doc.title }}</a></li>
+                {% assign doc_slug = doc.title | slugify %}
+                <!-- Check if the current page is the active page -->
+                {% assign is_active = false %}
+                {% if page.slug == doc_slug %}
+                    {% assign is_active = true %}
+                {% endif %}
+                {% assign href =  site.baseurl | append: '/' | append: group_slug | append: '/' | append: doc_slug | append: '/' %}
+                <li>
+                    <a href="{{ href }}" class="bd-links-link d-inline-block rounded{% if is_active %} active{% endif %}"{% if is_active %} aria-current="page"{% endif %}>
+                        {{ doc.title }}
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
         </li>
-        {% else %}
-        <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>
-        <li class="bd-links-span-all">
-            {% assign href = '/docs/' | append: site.params.docs_version | append: '/' | append: group_slug | append: '/' %}
-            <a href="{{ href }}" class="bd-links-link d-inline-block rounded small{% if is_active_group %} active{% endif %}"{% if is_active_group %} aria-current="page"{% endif %}>
-                {{ group.title }}
-            </a>
-        </li>
         {% endif %}
+        <li class="bd-links-span-all mt-1 mb-3 mx-4 border-top"></li>
         {% endfor %}
     </ul>
 </nav>

@@ -48,22 +48,32 @@ defaults:
       type: "authors"
     values:
       layout: "author"
+      show_sidebar: true
+      toc: true
   - scope:
       path: ""
       type: "posts"
     values:
       layout: "post"
+      show_sidebar: true
+      toc: true
   - scope:
       path: ""
     values:
-      layout: "default"
+      layout: "doc"
+      show_sidebar: true
+      toc: true
   - scope:
       path: ""
       type: "technologies"
     values:
       layout: "technology"
+      show_sidebar: true
+      toc: true
   - scope:
       path: ""
       type: "topics"
     values:
       layout: "topic"
+      show_sidebar: true
+      toc: true
