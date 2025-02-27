@@ -1,10 +1,10 @@
 #- name: Home
 #  link: /
 - name: About
-  link: /about.html
+  link: /about/
 - name: Blogs
-  link: /blogs.html
+  link: /blogs/
 - name: Authors
-  link: /authors.html
+  link: /authors/
 - name: "Tech Catalog"
-  link: /tech-catalog.html
+  link: /tech-catalog/

@@ -4,7 +4,7 @@ title: Blog2 Title
 render_with_liquid: false
 ---
 
-#### Blog 2: With Code Snippets 
+# Blog 2: With Code Snippets 
 
 This is an example of a blog post.
 

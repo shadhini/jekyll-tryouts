@@ -34,13 +34,20 @@ kramdown: # kramdown settings
     guess_lang: true # automatically detect the language of the code block
     css_class: "highlight" # CSS class for code blocks
 
+permalink: /:slugified_categories/:slug/ # permalink structure for posts and pages
+
 collections:
   authors:
     output: true
+    permalink: /:collection/:name/
+    # name: document's base filename slugified: downcased and
+    #   every sequence of non-alphanumeric character (including spaces) replaced by a hyphen
   technologies:
     output: true
+    permalink: /:collection/:name/
   topics:
     output: true
+    permalink: /:collection/:name/
 
 defaults:
   - scope:

@@ -138,11 +138,23 @@ kramdown: # kramdown settings
       #  :mathjax - Use the MathJax math engine
       #  :itex - Use the iTeX math engine
 
+permalink: /:slugified_categories/:slug/ # slugified document's filename with slugified categories
+  #   (any character except numbers and letters is replaced as hyphen)
+  # if permalink: pretty, then the URLs will be in the format:
+        # /:categories/:year/:month/:day/:title/ for posts
+        # /:categories/:title/ for pages
   
 # enable document/item output for collections
 collections:
-  authors:
+  technologies:
     output: true
+    permalink: /:collection/:name/ 
+    # URL with collection label and 
+    #   document's base filename slugified: downcased and 
+    #   every sequence of non-alphanumeric character (including spaces) replaced by a hyphen.
+  topics:
+    output: true
+    permalink: /:collection/:name/
     
 # front matter defaults: can be used to set property values for all items/pages in a matching path 
 defaults:
@@ -165,7 +177,9 @@ defaults:
       type: "pages" 
     values:
       layout: "project" # overrides previous default layout
-      author: "Mr. Hyde"
+      show_sidebar: true # this property is accessible via page.show_sidebar at every page 
+      # unless it is overridden at the page level front matter
+      toc: true
 ```
 
 * Whenever `_config.yml` file is updated, you'd have to restart Jekyll for the changes to take effect.
