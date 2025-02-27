@@ -1,9 +1,9 @@
 ---
-layout: default
 title: "Tech Catalog"
+toc: false
 ---
 
-<h1>Tech Catalog</h1>
+# Tech Catalog
 <hr>
 <br>
 <ul class="nav nav-tabs" role="tablist">

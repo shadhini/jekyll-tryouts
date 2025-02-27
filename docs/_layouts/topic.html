@@ -1,9 +1,7 @@
 ---
-layout: default
+layout: doc
 ---
 
-<h2>{{ page.title }}</h2>
-<br>
 {% if page.ref %}
 {% for technology in site.data.topics[page.ref].technologies %}
 <span class="badge bg-secondary">
@@ -11,6 +9,4 @@ layout: default
 </span>
 {% endfor %}
 {% endif %}
-<br>
-<br>
 {{ content }}

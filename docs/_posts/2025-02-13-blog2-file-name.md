@@ -1,5 +1,4 @@
 ---
-layout: post
 author: jack
 title: Blog2 Title
 render_with_liquid: false

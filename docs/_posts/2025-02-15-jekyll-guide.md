@@ -1,5 +1,7 @@
 ---
 render_with_liquid: false
+author: shadhini
+title: Jekyll Blog
 ---
 # Jekyll Guide
 

@@ -1,5 +1,4 @@
 ---
-layout: post
 author: jill
 title: Blog1 Title
 ---
