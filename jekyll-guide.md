@@ -1535,6 +1535,7 @@ instead of having to download the bundle on each build.
 Enable using `https://github.com/allejo/jekyll-toc`
 - This template does not allow skipping heading levels in the table of contents.
   - For example, you cannot jump from Heading 2 directly to Heading 5.
+- TOC is generated based on <h1> to <h6> headings in the markdown content
 
 `_includes/toc.html`: from `https://github.com/allejo/jekyll-toc/blob/master/_includes/toc.html`
 

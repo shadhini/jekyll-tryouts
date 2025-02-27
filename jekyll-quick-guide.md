@@ -62,8 +62,11 @@ markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions to process
 # Markdown processor/ markdown render engine settings for the site
 markdown: kramdown # markdown render engine - kramdown 
   # Site can be built locally using Jekyll only with kramdown as markdown processor
-kramdown: # kramdown settings https://kramdown.gettalong.org/documentation.html
+kramdown: # kramdown settings 
+  # Doc: https://kramdown.gettalong.org/documentation.html
+  # Configuration options: https://kramdown.gettalong.org/options.html
   input: GFM # markdown file input format to the kramdown processor
+    # Doc: https://kramdown.gettalong.org/parser/gfm.html
     # values for the input attribute:
       #  GFM - GitHub Flavored Markdown
         # dependencies: 
@@ -76,6 +79,11 @@ kramdown: # kramdown settings https://kramdown.gettalong.org/documentation.html
   hard_wrap: false # does not convert single line breaks into <br> tags
   auto_ids: true # Kramdown automatically generates id attributes for headings 
      # which are useful for creating anchor links to specific sections of the document
+  auto_id_prefix: "id-" # prefix for automatically generated id attributes
+    # Kramdown does not strip preceding numbers from generated header IDs when GFM is used as the input format.
+    # query selector in scrollspy.js throws a syntax error, if generated IDs start with a digit 
+    #     as CSS selectors cannot start with a digit.
+    # To avoid this, we can set auto_id_prefix to "id-" to ensure that all generated IDs start with a letter.
   footnote_nr: 1 # set the starting number for footnotes in your document; default = 1
     # useful if you need to continue footnote numbering from a previous document or 
     # if you have specific formatting requirements
@@ -94,11 +102,14 @@ kramdown: # kramdown settings https://kramdown.gettalong.org/documentation.html
       #  :ldquo - Left double quote (“)
       #  :rdquo - Right double quote (”)
   syntax_highlighter: rouge # syntax highlighter for code blocks; default = rouge
+    # Doc: https://kramdown.gettalong.org/syntax_highlighter
     # values for the syntax_highlighter attribute:
       #  :rouge - Use the Rouge syntax highlighter
         # dependency: rouge gem
         # stylesheet: https://jwarby.github.io/jekyll-pygments-themes/languages/ruby.html
+        # Doc: https://kramdown.gettalong.org/syntax_highlighter/rouge.html
       #  :coderay - Use the Coderay syntax highlighter
+        # Doc: https://kramdown.gettalong.org/syntax_highlighter/coderay.html
       #  :pygments - Use the Pygments syntax highlighter
     # kramdown supported syntax highlighters: rouge, coderay
   syntax_highlighter_opts: # set options for the syntax highlighter
@@ -113,36 +124,8 @@ kramdown: # kramdown settings https://kramdown.gettalong.org/documentation.html
       # [do not work with rouge] 
     guess_lang: true # attempt to guess the language of code blocks
       # [work with rouge]
-    block_tabs: 2 # set the number of spaces to use for tab characters
-    block_start: "<div>" # set the starting tag for code blocks
-    block_end: "</div>" # set the ending tag for code blocks
-    block_title: "Code" # set the title for code blocks
-    block_lang: "plaintext" # set the default language for code blocks
-    block_opts: # set default options for code blocks
-      line_numbers: true # display line numbers in code blocks
-      line_number_start: 1 # set the starting line number for code blocks
-      line_number_anchors: true # add anchor links to line numbers
-      block_tabs: 2 # set the number of spaces to use for tab characters
-      block_start: "<div>" # set the starting tag for code blocks
-      block_end: "</div>" # set the ending tag for code blocks
-      block_title: "Code" # set the title for code blocks
-      block_lang: "plaintext" # set the default language for code blocks
   enable_coderay: false # disable coderay syntax highlighting for code blocks
   # if enable_coderay: true, then specify the coderay settings as follows
-  #  coderay:
-  #      coderay_wrap: div # wrap code blocks in a div element
-  #      coderay_line_numbers: inline # display line numbers inline with the code
-  #      coderay_line_numbers_start: 1 # set the starting line number for code blocks
-  #      coderay_tab_width: 4 # set the number of spaces to use for tab characters
-  #      coderay_bold_every: 10 # bold every 10th line number in code blocks
-  #      coderay_css: style # specify the CSS style for code blocks
-  #      coderay_default_lang: ruby # set the default language for code blocks
-  #      coderay_default_options: # set default options for code blocks
-  #      line_numbers: table # display line numbers in a table
-  #      line_number_anchors: true # add anchor links to line numbers
-  #      bold_every: 10 # bold every 10th line number
-  #      tab_width: 4 # set the number of spaces to use for tab characters
-  #      css: style # specify the CSS style for code blocks
   gfm_quirks: # quirks for GitHub Flavored Markdown (GFM)
     # allows you to enable or disable specific quirks when using GitHub Flavored Markdown (GFM)
     # quirks can help you fine-tune how certain Markdown features behave to better match GitHub's rendering
@@ -160,6 +143,7 @@ kramdown: # kramdown settings https://kramdown.gettalong.org/documentation.html
 collections:
   authors:
     output: true
+    
 # front matter defaults: can be used to set property values for all items/pages in a matching path 
 defaults:
   - scope:
@@ -687,6 +671,136 @@ git repo -> `Actions` -> `Deployments` -> view live site via deployed site URL
 ## Workflow Management
 `Caching` — The `ruby/setup-ruby` action makes it possible to cache installed gems automatically
 instead of having to download the bundle on each build.
+
+# Add Table of Content for `.md` files
+
+Using [allejo/jekyll-toc](https://github.com/allejo/jekyll-toc)
+- This template does not allow skipping heading levels in the table of contents.
+  - For example, you cannot jump from Heading 2 directly to Heading 5.
+- TOC is generated based on <h1> to <h6> headings in the markdown content
+
+`_includes/toc.html`: liquid template for generating TOC
+- `https://github.com/allejo/jekyll-toc/blob/master/_includes/toc.html`
+
+`_sass/_toc.scss`: styles for the table of contents
+- https://github.com/twbs/bootstrap/blob/90acd33350e1356194a364595cb07b65f24bd611/site/assets/scss/_toc.scss
+
+`_sass/_layout.scss`: styles for the layout with TOC
+- https://github.com/twbs/bootstrap/blob/90acd33350e1356194a364595cb07b65f24bd611/site/assets/scss/_layout.scss
+
+`_sass/vendor/_rfs.scss`: styles for responsive font sizes
+- https://github.com/twbs/bootstrap/blob/90acd33350e1356194a364595cb07b65f24bd611/scss/vendor/_rfs.scss
+
+`_sass/_mixins.scss`: import RFS mixins required for styles
+```scss
+.....
+@import "vendor/rfs";
+```
+
+`_sass/_variables.scss`: define variables for the layout and anchor links
+```scss
+  .....
+  // Grid gutter width
+  $grid-gutter-width: 1.5rem;
+  
+  // Links
+  //
+  // Style anchor elements.
+  
+  $link-color:                              $primary !default;
+  $link-decoration:                         underline !default;
+  $link-hover-decoration:                   null !default;
+```
+- it's important to use the `_variables.scss` for the theme you are using and
+  append additional variables required for the TOC
+
+`assets/css/styles.scss`: import the stylesheets
+```scss
+.....
+  @import "layout";
+  @import "vendor/rfs";
+  @import "toc";
+```
+
+usage: in the layout where `{{content}}` is rendered
+```html
+{% include toc.html html=content h_min=1 h_max=8 item_class="nav-item" anchor_class="nav-link" %}
+```
+- **html**: the HTML of compiled markdown (generated by kramdown in Jekyll)
+- **sanitize**: if true, headers will be stripped of any HTML in the TOC
+- **class**: CSS class assigned to the TOC
+- **id**: ID to assigned to the TOC
+- **h_min**: minimum TOC header level to use
+- **h_max**: maximum TOC header level to use
+- **ordered**: if true, an ordered list will be outputted instead of an unordered list
+- **item_class**: class(es) for each list item `<li></li>`
+- **submenu_class** (string): class(es) for each child group of headings
+- **base_url**: the base url needed when TOC links content on another page than the actual content
+- **anchor_class**: class(es) for each anchor element `<a></a>`
+- **skip_no_ids**: if true, skip headers that do not have an `id` attribute
+- **flat_toc**: if true, the TOC will be a single level list
+
+# Add Anchors to Headings
+
+Using [Anchor.js](https://www.bryanbraun.com/anchorjs/)
+
+`_includes/scripts.html`: include the anchor.js script
+```html
+<!-- Anchor.js CDN to add anchor links to headings: https://www.bryanbraun.com/anchorjs/ -->
+<script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+<script>
+    anchors.add(); <!-- Add anchors before the closing body tag. -->
+</script>
+```
+
+# Enable Scrollable TOC that automatically highlights the current section
+
+Using `Bootstrap's Scrollspy` component: JS plugin for automatically updating navigation components 
+based on scroll position to indicate which link is currently active in the viewport
+
+`_includes/scripts.html`: CDN for Bootstrap's JS file to be included as a script
+
+`_sass/_scrolling.scss`: to prevent focus from landing behind the sticky header, when navigating with the keyboard
+- specially useful when using navigation bars that stick to the top
+
+`assets/css/styles.scss`: import the scrolling styles
+
+`_config.yml`: to avoid CSS selectors having a digit as the first character;
+since query selector in scrollspy.js throws a syntax error, if generated IDs for headings start with a digit
+```yaml
+.......
+markdown: kramdown 
+kramdown: 
+  input: GFM 
+  hard_wrap: false 
+  auto_ids: true 
+  auto_id_prefix: "id-" # prefix for automatically generated id attributes
+.....
+```
+
+`_layouts/doc.html`: usage in layout with TOC
+```html
+....
+<!-- Table of Content -->
+<div class="bd-toc mt-3 mb-5 my-lg-0 mb-lg-5 px-sm-1 text-body-secondary">
+  <button class="btn btn-link p-md-0 mb-2 mb-md-0 text-decoration-none bd-toc-toggle d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents">
+    On this page
+    <svg class="bi d-md-none ms-2" aria-hidden="true"><use xlink:href="#chevron-expand"></use></svg>
+  </button>
+  <strong class="d-none d-md-block h6 my-2 ms-3">On this page</strong>
+  <hr class="d-none d-md-block my-2 ms-3">
+  <div class="collapse bd-toc-collapse" id="tocContents">
+    <nav id="TableOfContents">
+      {% include toc.html html=content h_min=1 h_max=8 item_class="nav-item" anchor_class="nav-link" %}
+    </nav>
+  </div>
+</div>
+
+<div class="bd-content ps-lg-2" {% if page.toc == true %} data-bs-spy="scroll" data-bs-target="#TableOfContents" tabindex="0" {% endif %}>
+  {{ content }}
+</div>
+```
+
 
 # Reusable Templates
 
