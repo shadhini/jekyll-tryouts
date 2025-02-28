@@ -1,0 +1,13 @@
+<nav aria-label="breadcrumb" style="position: sticky; top: 0; background-color: white;">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ site.baseurl }}/technologies">Technologies</a></li>
+        {% assign url_parts = page.url | split: '/' %}
+        {% for part in url_parts %}
+        {% if part != "" and part !='technologies' %}
+        <li class="breadcrumb-item">
+            <a href="{{ site.baseurl }}{{ url_parts | slice: 0, forloop.index | join: '/' }}/">{{ part }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ol>
+</nav>

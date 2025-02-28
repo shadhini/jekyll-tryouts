@@ -6,6 +6,13 @@ bootstrap:
     - "Web Development Technologies"
   similar-technologies:
     - "Tailwind CSS"
+  important:
+    - name: "Bootstrap Commands"
+      url: "https://shadhini.github.io/jekyll-tryouts/technologies/bootstrap/commands/bootstrap-commands/"
+    - name: "Bootstrap Freamework 1"
+      url: "https://shadhini.github.io/jekyll-tryouts/technologies/bootstrap/frameworks/bootstrap-framework-1/"
+    - name: "Bootstrap Freamework 2"
+      url: "https://shadhini.github.io/jekyll-tryouts/technologies/bootstrap/frameworks/bootstrap-framework-2/"
 tailwind-css:
   topics:
     - "CSS Frameworks"

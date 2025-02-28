@@ -13,13 +13,16 @@
                 <h2 style="margin-top: 0px; border-bottom: 0px">
                     <a href="{{ site.baseurl }}{{ technology.url }}">{{ technology.title }}</a>
                 </h2>
-                <!-- Support Files -->
+                <!-- Important Links -->
                 <br>
-                <strong class="text-success-emphasis"> Support Files: </strong>
+                <strong class="text-success-emphasis"> Important Links: </strong>
+                <br>
+                {% for link in site.data.technologies[technology.slug].important %}
+                <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+                {% endfor %}
                 <br>
                 <!-- Similar Technologies -->
                 {% if site.data.technologies[technology.slug].similar-technologies %}
-                <br>
                 <strong class="text-success-emphasis"> Similar Technologies: </strong>
                 <br>
                 {% for similar_technology in site.data.technologies[technology.slug].similar-technologies %}

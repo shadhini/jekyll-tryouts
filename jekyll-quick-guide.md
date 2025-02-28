@@ -223,6 +223,8 @@ defaults:
 │         ├── Gemfile: gem dependencies
 │         ├── Gemfile.lock: gem dependencies lock file --> excluded from remote repo
 │         ├── _config.yml: configuration file
+│         ├── _plugins
+│         │         └── nodateposts.rb: custom plugin to allow posts without dates
 │         ├── _data: data files
 │         │         │       * site.data
 │         │         ├── navigation.yml: navigation data
@@ -241,6 +243,8 @@ defaults:
 │         │         ├── scripts.html: JS scripts list
 │         │         ├── stylesheet.html: stylesheet list
 │         │         ├── svg-icons.html: SVG icons list
+│         │         ├── technologies-breadcrumbs.html: breadcrumbs for pages/docs related to technologies 
+│         │         │       * not used
 │         │         ├── technology-list-accordion.html: accordion list of all technologies & their metadata
 │         │         ├── technology-metadata.html: technology metadata for current technology page
 │         │         ├── topic-list-accordion.html: accordion list of all topics & their metadata
@@ -312,6 +316,13 @@ defaults:
 │         │         ├── bootstrap.md
 │         │         ├── jekyll.md
 │         │         └── tailwind-css.md
+│         ├── technologies
+│         │         └── bootstrap: sample extra/important notes on bootstrap
+│         │             ├── commands
+│         │             │         └── bootstrap-commands.md
+│         │             └── test-frameworks
+│         │                 ├── bootstrap-framework-2.md
+│         │                 └── bootstrap-framweok-1.md
 │         ├── _topics
 │         │         ├── css-frameworks.md
 │         │         └── web-development-technologies.md

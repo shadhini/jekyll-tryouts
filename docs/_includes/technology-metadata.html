@@ -3,8 +3,12 @@
     <tr>
         <!-- Technology Name -->
         <td><strong class="text-success-emphasis">{{ page.title }}</strong></td>
-        <!-- Support Files -->
-        <td></td>
+        <!-- Important Links -->
+        <td>
+            {% for link in site.data.technologies[page.slug].important %}
+            <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+            {% endfor %}
+        </td>
         <!-- Related Topics -->
         <td>
             {% for topic in site.data.technologies[page.slug].topics %}
