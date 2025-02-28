@@ -1,24 +1,22 @@
+# Note: technologies should be as same as the file name of the technology in the _technologies directory
+#   when slugified; when all non-alphanumeric characters are replaced by a hyphen.
 web-development-technologies:
   technologies:
-    - name: "CSS"
-      ref: "css"
-    - name: "Sass"
-      ref: "sass"
-    - name: "Tailwind CSS"
-      ref: "tailwind-css"
-    - name: "Bootstrap"
-      ref: "bootstrap"
-    - name: "JSX"
-      ref: "jsx"
-    - name: "Jekyll"
-      ref: "jekyll"
+    - "CSS"
+    - "Sass"
+    - "Tailwind CSS"
+    - "Bootstrap"
+    - "JSX"
+    - "Jekyll"
+  related-topics:
+    - "CSS Frameworks"
+    - "Static Site Generators"
 open-source-technologies:
   technologies:
-    - name: "Git"
-      ref: "git"
+    - "Git"
 css-frameworks:
   technologies:
-    - name: "Tailwind CSS"
-      ref: "tailwind-css"
-    - name: "Bootstrap"
-      ref: "bootstrap"
+    - "Tailwind CSS"
+    - "Bootstrap"
+  related-topics:
+    - "Web Development Technologies"

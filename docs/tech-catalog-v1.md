@@ -1,0 +1,58 @@
+---
+title: "Tech Catalog"
+toc: false
+---
+
+# Tech Catalog
+<hr>
+<br>
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="tab" href="#topics" aria-selected="false" role="tab" tabindex="-1">Topics</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" data-bs-toggle="tab" href="#technologies" aria-selected="true" role="tab">Technologies</a>
+    </li>
+</ul>
+<div id="TabContent" class="tab-content">
+    <div class="tab-pane fade" id="topics" role="tabpanel">
+        <br>
+        <div>
+            {% for topic in site.topics %}
+            <a href="{{ site.baseurl }}{{ topic.url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ topic.title }}</h5>
+                </div>
+            </a>
+            {% for technology in site.data.topics[topic.ref].technologies %}
+            <span class="badge bg-secondary">
+                <a href="{{ site.baseurl }}/technologies/{{ technology.ref }}.html" target="_blank" data-bs-theme="light">{{ technology.name }}</a>
+            </span>
+            {% endfor %}
+            <br>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="tab-pane fade active show" id="technologies" role="tabpanel">
+        <br>
+        <div>
+            {% for technology in site.technologies %}
+            <a href="{{ site.baseurl }}{{ technology.url }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ technology.title }}</h5>
+                </div>
+            </a>
+            {% for topic in site.data.technologies[technology.ref].topics %}
+            <span class="badge bg-secondary">
+                <a href="{{ site.baseurl }}/topics/{{ topic.ref }}.html" target="_blank" data-bs-theme="light">{{ topic.name }}</a>
+            </span>
+            {% endfor %}
+            <br>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+

@@ -1,6 +1,5 @@
 ---
 title: "Tailwind CSS"
-ref: tailwind-css
 ---
 # Tailwind CSS
 

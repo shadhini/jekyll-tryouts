@@ -1,0 +1,53 @@
+<!-- Global Topics List -->
+<div class="accordion" id="topic_list">
+    {% for topic in site.topics %}
+    {% assign topic_id = topic.slug %}
+    <div class="accordion-item">
+    <span class="accordion-header">
+      <button class="accordion-button text-primary-emphasis" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ topic_id }}" aria-expanded="true" aria-controls="collapse{{ topic_id }}">
+         {{ topic.title }}
+      </button>
+    </span>
+        <div id="collapse{{ topic_id }}" class="accordion-collapse collapse" data-bs-parent="#topic_list">
+            <div class="accordion-body">
+                <h2 style="margin-top: 0px; border-bottom: 0px">
+                    <a href="{{ site.baseurl }}{{ topic.url }}">{{ topic.title }}</a>
+                </h2>
+                <!-- Support Files -->
+                <br>
+                <strong class="text-success-emphasis"> Support Files: </strong>
+                <br>
+                <!-- Related Technologies -->
+                {% if site.data.topics[topic.slug].technologies %}
+                <br>
+                <strong class="text-success-emphasis"> Related Technologies: </strong>
+                <br>
+                {% for technology in site.data.topics[topic.slug].technologies %}
+                {% assign technology_slug = technology | slugify %}
+                <span class="badge bg-secondary">
+                    <a href="{{ site.baseurl }}/technologies/{{ technology_slug }}" target="_blank" data-bs-theme="light">
+                        {{ technology }}
+                    </a>
+                </span>
+                {% endfor %}
+                {% endif %}
+                <br>
+                <!-- Related Topics -->
+                {% if site.data.topics[topic.slug].related-topics %}
+                <br>
+                <strong class="text-success-emphasis"> Related Topics: </strong>
+                <br>
+                {% for related_topic in site.data.topics[topic.slug].related-topics %}
+                {% assign related_topic_slug = related_topic | slugify %}
+                <span class="badge bg-secondary">
+                    <a href="{{ site.baseurl }}/topics/{{ related_topic_slug }}" target="_blank" data-bs-theme="light">
+                        {{ related_topic }}
+                    </a>
+                </span>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

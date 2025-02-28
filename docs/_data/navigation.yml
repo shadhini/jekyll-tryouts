@@ -6,5 +6,7 @@
   link: /blogs/
 - name: Authors
   link: /authors/
-- name: "Tech Catalog"
-  link: /tech-catalog/
+- name: Technologies
+  link: /technologies/
+- name: Topics
+  link: /topics/

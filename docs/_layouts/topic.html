@@ -2,11 +2,15 @@
 layout: doc
 ---
 
-{% if page.ref %}
-{% for technology in site.data.topics[page.ref].technologies %}
-<span class="badge bg-secondary">
-    <a href="{{ site.baseurl }}/technologies/{{ technology.ref }}.html" target="_blank" data-bs-theme="light">{{ technology.name }}</a>
-</span>
-{% endfor %}
-{% endif %}
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th></th>
+        <th class="text-success-emphasis">Support Files</th>
+        <th class="text-success-emphasis">Related Technologies</th>
+        <th class="text-success-emphasis">Related Topics</th>
+    </tr>
+    </thead>
+    {% include topic-metadata.html %}
+</table>
 {{ content }}

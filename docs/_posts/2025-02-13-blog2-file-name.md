@@ -2,6 +2,7 @@
 author: jack
 title: Blog2 Title
 render_with_liquid: false
+categories: [blogs]
 ---
 
 # Blog 2: With Code Snippets 

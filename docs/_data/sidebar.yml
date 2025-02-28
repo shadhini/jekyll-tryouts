@@ -21,6 +21,14 @@
     - title: CSS Frameworks
     - title: Web Development Technologies
 
+- title: Blogs
+  icon: substack
+  icon_color: gray
+  pages:
+    - title: Blog1 File Name
+    - title: Blog2 File Name
+    - title: Jekyll Guide
+
 - title: Authors
   icon: pen-fill
   icon_color: cyan
@@ -30,10 +38,6 @@
 - title: Tech Catalog
   icon: journal-bookmark-fill
   icon_color: pink
-
-- title: Blogs
-  icon: substack
-  icon_color: gray
 
 - title: About
   icon: info-square-fill

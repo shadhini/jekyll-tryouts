@@ -1,6 +1,5 @@
 ---
 title: Bootstrap
-ref: bootstrap
 ---
 
 # Bootstrap

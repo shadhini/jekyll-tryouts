@@ -1,23 +1,22 @@
 ---
 title: "Web Development Technologies"
-ref: web-development-technologies
 ---
 
 # Web Development Technologies 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Technology</th>
-            <th>Description</th>
-            <th>Use Case</th>
-            <th>Example Frameworks/Libraries</th>
+            <th class="text-success-emphasis">Technology</th>
+            <th class="text-success-emphasis">Description</th>
+            <th class="text-success-emphasis">Use Case</th>
+            <th class="text-success-emphasis">Example Frameworks/Libraries</th>
         </tr>
     </thead>
     <tbody>
         <tr class="table-primary">
             <td colspan="4">Markup Languages</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>HTML</td>
             <td>Standard markup language for creating web pages</td>
             <td>Structure and content of web pages</td>
@@ -26,7 +25,7 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Style Sheet Languages</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>CSS</td>
             <td>Style sheet language used for describing the presentation of a document</td>
             <td>Styling web pages</td>
@@ -35,43 +34,43 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Programming Languages</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>JavaScript</td>
             <td>Programming language that enables interactive web pages</td>
             <td>Client-side scripting, dynamic content</td>
             <td>React, Angular, Vue.js</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>TypeScript</td>
             <td>Superset of JavaScript that adds static types</td>
             <td>Large-scale JavaScript applications</td>
             <td>Angular, NestJS</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>PHP</td>
             <td>Server-side scripting language designed for web development</td>
             <td>Dynamic web pages, server-side logic</td>
             <td>Laravel, Symfony</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Python</td>
             <td>High-level programming language</td>
             <td>Web applications, server-side scripting</td>
             <td>Django, Flask</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Ruby</td>
             <td>High-level programming language</td>
             <td>Web applications, server-side scripting</td>
             <td>Ruby on Rails</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Java</td>
             <td>High-level, class-based programming language</td>
             <td>Enterprise web applications, server-side logic</td>
             <td>Spring, JavaServer Faces (JSF)</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>C#</td>
             <td>Multi-paradigm programming language</td>
             <td>Web applications, server-side scripting</td>
@@ -80,13 +79,13 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Database Technologies</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>SQL</td>
             <td>Domain-specific language for managing data in relational databases</td>
             <td>Database management, querying</td>
             <td>MySQL, PostgreSQL, SQLite</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>NoSQL</td>
             <td>Non-relational database management systems</td>
             <td>Handling large volumes of unstructured data</td>
@@ -95,13 +94,13 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">API Technologies</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>GraphQL</td>
             <td>Query language for APIs and runtime for executing those queries</td>
             <td>Efficient data retrieval</td>
             <td>Apollo, Relay</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>RESTful APIs</td>
             <td>Architectural style for designing networked applications</td>
             <td>Web services, API development</td>
@@ -110,13 +109,13 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Runtime Environments</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Node.js</td>
             <td>JavaScript runtime built on Chrome's V8 JavaScript engine</td>
             <td>Server-side scripting, building scalable network applications</td>
             <td>Express, Koa</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>WebAssembly</td>
             <td>Binary instruction format for a stack-based virtual machine</td>
             <td>High-performance web applications, running code in browser</td>
@@ -125,19 +124,19 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Application Architectures</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Progressive Web Apps</td>
             <td>Type of application software delivered through the web</td>
             <td>Cross-platform web applications, offline capabilities</td>
             <td>Workbox, Ionic</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Single Page Applications (SPA)</td>
             <td>Web applications that load a single HTML page and dynamically update as the user interacts with the app</td>
             <td>Responsive, fast-loading web applications</td>
             <td>React, Angular, Vue.js</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Static Site Generators</td>
             <td>Tools that generate static HTML pages from templates or components</td>
             <td>Fast, secure, and easily deployable websites</td>
@@ -146,7 +145,7 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Content Management</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Content Management Systems (CMS)</td>
             <td>Software applications used to create, manage, and modify digital content</td>
             <td>Website management, blogging</td>
@@ -155,7 +154,7 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Microservices Architecture</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Microservices</td>
             <td>Architectural style that structures an application as a collection of loosely coupled services</td>
             <td>Scalable, maintainable web applications</td>
@@ -164,7 +163,7 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Cloud and Serverless Computing</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Serverless Computing</td>
             <td>Cloud-computing execution model where the cloud provider runs the server</td>
             <td>Running backend code without managing servers</td>
@@ -173,7 +172,7 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">DevOps Practices</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>DevOps</td>
             <td>Set of practices that combines software development and IT operations</td>
             <td>Continuous integration, continuous delivery (CI/CD)</td>
@@ -182,7 +181,7 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Version Control</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Version Control</td>
             <td>System for tracking changes in source code during software development</td>
             <td>Collaboration, version tracking, code management</td>
@@ -191,13 +190,13 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Containerization and Virtualization</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Containerization</td>
             <td>OS-level virtualization to deploy and run distributed applications</td>
             <td>Consistent environments, scalable deployments</td>
             <td>Docker, Podman</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Virtualization</td>
             <td>Creating virtual versions of computing resources</td>
             <td>Resource optimization, isolation, scalability</td>
@@ -206,7 +205,7 @@ ref: web-development-technologies
         <tr class="table-primary">
             <td colspan="4">Testing Frameworks</td>
         </tr>
-        <tr class="table-active">
+        <tr >
             <td>Testing Frameworks</td>
             <td>Tools for testing applications and ensuring quality</td>
             <td>Unit testing, integration testing, end-to-end testing</td>

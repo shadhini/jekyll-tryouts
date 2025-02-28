@@ -1,7 +1,6 @@
 ---
 title: Jekyll
 render_with_liquid: false
-ref: jekyll
 ---
 # Jekyll Guide
 

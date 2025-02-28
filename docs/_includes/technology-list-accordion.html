@@ -1,0 +1,53 @@
+<!-- Global Technologies List -->
+<div class="accordion" id="technologies_list">
+    {% for technology in site.technologies %}
+    {% assign technology_id = technology.slug %}
+    <div class="accordion-item">
+    <span class="accordion-header">
+      <button class="accordion-button text-primary-emphasis" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ technology_id }}" aria-expanded="true" aria-controls="collapse{{ technology_id }}">
+         {{ technology.title }}
+      </button>
+    </span>
+        <div id="collapse{{ technology_id }}" class="accordion-collapse collapse" data-bs-parent="#technologies_list">
+            <div class="accordion-body">
+                <h2 style="margin-top: 0px; border-bottom: 0px">
+                    <a href="{{ site.baseurl }}{{ technology.url }}">{{ technology.title }}</a>
+                </h2>
+                <!-- Support Files -->
+                <br>
+                <strong class="text-success-emphasis"> Support Files: </strong>
+                <br>
+                <!-- Similar Technologies -->
+                {% if site.data.technologies[technology.slug].similar-technologies %}
+                <br>
+                <strong class="text-success-emphasis"> Similar Technologies: </strong>
+                <br>
+                {% for similar_technology in site.data.technologies[technology.slug].similar-technologies %}
+                {% assign similar_technology_slug = similar_technology | slugify %}
+                <span class="badge bg-secondary">
+                    <a href="{{ site.baseurl }}/technologies/{{ similar_technology_slug }}" target="_blank" data-bs-theme="light">
+                        {{ similar_technology }}
+                    </a>
+                </span>
+                {% endfor %}
+                {% endif %}
+                <br>
+                <!-- Related Topics -->
+                {% if site.data.technologies[technology.slug].topics %}
+                <br>
+                <strong class="text-success-emphasis"> Related Topics: </strong>
+                <br>
+                {% for topic in site.data.technologies[technology.slug].topics %}
+                {% assign topic_slug = topic | slugify %}
+                <span class="badge bg-secondary">
+                    <a href="{{ site.baseurl }}/topics/{{ topic_slug }}" target="_blank" data-bs-theme="light">
+                    {{ topic }}
+                    </a>
+                </span>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

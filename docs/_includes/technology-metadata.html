@@ -1,0 +1,31 @@
+<!-- Technology Metadata based on Current Technology Page -->
+<tbody>
+    <tr>
+        <!-- Technology Name -->
+        <td><strong class="text-success-emphasis">{{ page.title }}</strong></td>
+        <!-- Support Files -->
+        <td></td>
+        <!-- Related Topics -->
+        <td>
+            {% for topic in site.data.technologies[page.slug].topics %}
+            {% assign topic_slug = topic | slugify %}
+            <span class="badge bg-secondary">
+                <a href="{{ site.baseurl }}/topics/{{ topic_slug }}" target="_blank" data-bs-theme="light">
+                    {{ topic }}
+                </a>
+            </span>
+            {% endfor %}
+        </td>
+        <!-- Similar Technologies -->
+        <td>
+            {% for technology in site.data.technologies[page.slug].similar-technologies %}
+            {% assign technology_slug = technology | slugify %}
+            <span class="badge bg-secondary">
+                <a href="{{ site.baseurl }}/technologies/{{ technology_slug }}" target="_blank" data-bs-theme="light">
+                    {{ technology }}
+                </a>
+            </span>
+            {% endfor %}
+        </td>
+    </tr>
+</tbody>

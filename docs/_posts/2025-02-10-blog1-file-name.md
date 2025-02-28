@@ -1,6 +1,7 @@
 ---
 author: jill
 title: Blog1 Title
+categories: [blogs]
 ---
 
 # Blog 1: Heading 
