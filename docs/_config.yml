@@ -1,15 +1,6 @@
 baseurl: "/jekyll-tryouts"
 title: "Jekyll Tryouts" # used to set site title / name
 
-#plugins:
-#  - jekyll-include-cache
-
-# table of content
-#toc:
-#  enabled: true
-#  h_min:   1
-#  h_max:   8
-
 markdown_ext: markdown,mkdown,mkdn,mkd,md # markdown file extensions
 
 # markdown processor/ markdown render engine settings

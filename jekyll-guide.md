@@ -1665,3 +1665,42 @@ kramdown:
     # To avoid this, we can set auto_id_prefix to "id-" to ensure that all generated IDs start with a letter.
 .....
 ```
+
+## 19. Reuse cached files instead of rendering each time
+
+Using `jekyll-include-cache` plugin and `include_cached` liquid tag to cache the output of included files
+
+### 19.1. Usage
+
+* add `jekyll-include-cache` plugin to `Gemfile`
+
+      gem install jekyll-include-cache
+
+* `Gemfile`
+
+      gem "jekyll-include-cache"
+
+* Update Jekyll `_config.yml` to include the plugin
+  ```yaml
+  plugins:
+    - jekyll-include-cache
+  ```
+
+* Can be used with `include_cached` liquid tag
+  ```markdown
+  ---
+  layout: default
+  title: "Jekyll Guide"
+  ---
+
+  {% include_cached navigation.html %}
+  ```
+
+
+### 19.2. `include` vs `include_cached` tags
+- `{% include %}` tag: renders the included file every time it appears in the layout or page
+- `{% include_cached %}` tag: caches the output of the included file based on its parameters and filename
+  - If the same include is used multiple times with identical parameters,
+    it is rendered only once and then reused from cache.
+- Jekyll's `include` and `include_cached` tags are restricted to files within the `_includes` directory.
+

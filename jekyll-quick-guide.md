@@ -1,5 +1,22 @@
 # About jekyll
 
+- static site generator: `jekyll`
+- templating engine: `liquid`
+- markdown processor: `kramdown`
+- syntax highlighter: `rouge`
+- site deployment: `github pages`
+- js libraries: 
+  - `bootstrap` 
+  - copy to clipboard: `clipboard.js` 
+  - anchors: `anchor.js`
+  - scrollspy: `bootstrap scrollspy`
+  - responsive font sizes: `rfs`
+  - syntax highlighting: `rouge pygments` themes
+- toc: `allejo/jekyll-toc`
+- styling: `bootswatch yeti` theme via `CDN`
+  - css preprocessor: `sass`
+  - icons: `bootstrap icons`
+
 ## input files: 
 * `.md`, `.html`, `.yml`, `.json`
 * templates/tags in `liquid` --> `{{ }}`, `{% %}`
@@ -22,29 +39,44 @@
 ## deployment:
 
 `Gemfile` – for dependency management
-- installing a new gem (adding to gem file): `gem install <GEM_NAME>`
+- `gem install <GEM_NAME>`: installs gem system-wide or to a specific gemset
+  - but does not add it to Gemfile
 
 `Bundler` – manages Ruby gem dependencies
 - `bundle install` | `bundle` – installs all gems in the `Gemfile`
 - `bundle exec jekyll serve` – runs Jekyll with the gems in the `Gemfile`
+- `bundle add jekyll-include-cache` – adds a gem to the `Gemfile` and install it
 
 if publishing site with GitHub Pages,
-- match production version of Jekyll by using the `github-pages` **gem** instead of `jekyll` in your `Gemfile`
+- if using default github actions workflow: 
+  - match production version of Jekyll by using the `github-pages` **gem** instead of `jekyll` in your `Gemfile`
 - **exclude** `Gemfile.lock` from repository as GitHub Pages ignores that file
 
-## notes:
-Jekyll converts markdown files to html files using following methods.
+## jekyll markdown files to html conversion:
+Jekyll converts markdown files to html files using following methods with the help of `kramdown` markdown processor:
  * **layouts**, 
  * `{{content}}` attribute and 
  * `mardownify` filter 
 
-**Front Matter** should be included in a file to **process liquid tags** in it. Also, it is used 
-* to specify configuration details such as `layout` at the individual file level
-* to set custom properties for individual page/content
+## front matter:
+**Front Matter** should be included in a file to **process liquid tags** in it. 
+```markdown
+<!-- Front Matter -->
+---
+---
+```
+used to
+* specify configuration details such as `layout` at the individual file level
+* set custom properties for individual page/content
+
+## pages, posts, and documents
+- **pages**: regular md file doesn't belong to any collection or `_posts` directory
+- **posts**: markdown files in `_posts` directory
+- **documents**: markdown files in user-defined collections
 
 # Testing Jekyll on GH Pages locally with live reload
 
-from the root directory for ph pages
+from the root directory for gh pages
 ```bash
 cd docs
 bundle exec jekyll serve --livereload
@@ -144,10 +176,9 @@ permalink: /:slugified_categories/:slug/ # slugified document's filename with sl
         # /:categories/:year/:month/:day/:title/ for posts
         # /:categories/:title/ for pages
   
-# enable document/item output for collections
 collections:
   technologies:
-    output: true
+    output: true # enable document/item output for collections
     permalink: /:collection/:name/ 
     # URL with collection label and 
     #   document's base filename slugified: downcased and 
@@ -187,33 +218,219 @@ defaults:
 # Directory Structure
 
 ```text
-|-- docs: root gh pages publishing directory
-    |-- _config.yml: configuration file
-    |-- _layouts: page layouts
-    |-- _includes: reusable code snippets
-    |-- _posts: blog posts
-        * site.posts
-        * post.url
-        * post.title: post filename or front matter title
-        * post.excerpt: first para of content
-    |-- _data: data files
-        * site.data
-    |-- _sass: sass files
-    |-- _<COLLECTION_NAME>: sample collection; there can be any number of collections
-        * site.<COLLECTION_NAME>
-    |-- assets: site assets
-        |-- css
-            |-- styles.scss: entry point for the website’s CSS
-        |-- js
-        |-- images
-    |-- index.html/index.md
-    |-- about.html/about.md
-    |-- contact.html/contact.md
-    |-- blogs.html: blogs (taken from /_posts) list view 
+.
+├── docs: root gh pages publishing directory
+│         ├── Gemfile: gem dependencies
+│         ├── Gemfile.lock: gem dependencies lock file --> excluded from remote repo
+│         ├── _config.yml: configuration file
+│         ├── _data: data files
+│         │         │       * site.data
+│         │         ├── navigation.yml: navigation data
+│         │         │       * site.data.navigation
+│         │         ├── sidebar.yml: sidebar groups and items
+│         │         │       * site.data.sidebar
+│         │         ├── technologies.yml: technologies list with related topics & similar technologies
+│         │         │       * site.data.technologies
+│         │         └── topics.yml: topics list with related technologies & related topics
+│         │         │       * site.data.topics
+│         ├── _includes: reusable code snippets
+│         │         ├── docs-sidebar.html: sidebar for documentation
+│         │         ├── footer.html: footer for the site
+│         │         ├── head.html: head section of the site (stylesheets, scripts, meta tags)
+│         │         ├── navigation.html: navigation bar for the site
+│         │         ├── scripts.html: JS scripts list
+│         │         ├── stylesheet.html: stylesheet list
+│         │         ├── svg-icons.html: SVG icons list
+│         │         ├── technology-list-accordion.html: accordion list of all technologies & their metadata
+│         │         ├── technology-metadata.html: technology metadata for current technology page
+│         │         ├── topic-list-accordion.html: accordion list of all topics & their metadata
+│         │         ├── topic-metadata.html: topic metadata for current topic page
+│         │         ├── theme-toggler.html: theme/color mode toggler
+│         │         └── toc.html: TOC generator for markdown files
+│         │                 * only markdown content is correctly processed
+│         │                 * skipping/jumping heading levels distort output
+│         ├── _layouts: page layouts
+│         │         ├── base.html: base layout and structure
+│         │         ├── default.html: default layout 
+│         │         │       * single column - inherits from base
+│         │         ├── doc.html: 3 column layout for documentation with switchable & scrollable sidebar and toc 
+│         │         │       * inherits from base
+│         │         ├── landing-page.html: landing page layout with cover image 
+│         │         │       * inherits from base
+│         │         ├── technology.html
+│         │         │       * inherits from doc
+│         │         ├── topic.html
+│         │         │       * inherits from doc
+│         │         ├── post.html: layout for blog posts
+│         │         │       * inherits from doc
+│         │         └── author.html
+│         │                 * inherits from doc
+│         ├── _sass: sass styling files
+│         │         ├── _clipboard-js.scss: styling for clipboard.js
+│         │         ├── _custom.scss: custom project styles
+│         │         ├── _layout.scss: layout styles
+│         │         ├── _scrolling.scss: styles for preventing focus from landing behind the sticky header
+│         │         │         when navigating with the keyboard
+│         │         ├── _sidebar.scss: sidebar styles
+│         │         ├── _syntax-highlighting.scss: syntax highlighting styles based on color mode 
+│         │         │       * derived from rouge pygments styles
+│         │         ├── _toc.scss: TOC styles
+│         │         ├── _variables.scss: project variables; 
+│         │         │       * includes _variables.scss from bootswatch theme & other required variables
+│         │         ├── _mixins.scss: mixins required for styles
+│         │         ├── mixins
+│         │         │         ├── _border-radius.scss: required for layout styles
+│         │         │         ├── _breakpoints.scss: required for layout styles
+│         │         │         └── _color-mode.scss: required for color mode changes
+│         │         └── vendor: vendor styles
+│         │             └── _rfs.scss: responsive font sizes from bootstrap side project
+│         ├── assets: site assets
+│         │         ├── css
+│         │         │         └── styles.scss: entry point for the website’s CSS
+│         │         │               * all other stylesheets(.scss files) are imported here
+│         │         ├── images
+│         │         │         └── landing-page-cover-image.png
+│         │         └── js
+│         │             ├── copy-to-clipboard.js: script for copying code snippets to the clipboard
+│         │             └── theme.js: script for enabling switching between dark and light site color themes/modes
+│         ├── _posts: blog posts
+│         │         │       * site.posts: posts list
+│         │         │       * post.url
+│         │         │       * post.title: post filename or front matter title
+│         │         │       * post.excerpt: first para of content
+│         │         ├── 2025-02-10-blog1-file-name.md
+│         │         ├── 2025-02-13-blog2-file-name.md
+│         │         └── 2025-02-15-jekyll-guide.md
+│         ├── _authors
+│         │         └── jill.md
+│         ├── _<COLLECTION_NAME>: sample collection; there can be any number of collections
+│         │         │       * site.collections: collections list
+│         │         │       * site.documents: documents list of all collections
+│         │         │       * site.<COLLECTION_NAME>
+│         │         └── <COLLECTION_ITEM>.md: sample collection item
+│         ├── _technologies
+│         │         ├── bootstrap.md
+│         │         ├── jekyll.md
+│         │         └── tailwind-css.md
+│         ├── _topics
+│         │         ├── css-frameworks.md
+│         │         └── web-development-technologies.md
+│         ├── about.md
+│         ├── authors.md
+│         ├── blogs.md: blogs (taken from /_posts) list view
+│         ├── tech-catalog.md: tabular technology and topic catalog
+│         ├── technologies.md: technology list
+│         ├── topics.md: topic list
+│         ├── index.md: home page
+│         ├── _site: generated site files
+├── LICENSE
+└── README.md
+
 ```
 
-# Site Variables
-<!-- TODO: site variables -->
+# Variables & Liquid Attributes supported by Jekyll
+
+## Variables
+`site.[variable_name]`: site wide configuration/information in the `_config.yml` file root level and
+all the variables set via the command line
+- `site.time`: current time
+- `site.pages`: list of all pages
+- `site.posts`: list of all posts
+- `site.related_posts`: list of 10 most recent posts
+- `site.static_files`: list of all static files 
+  - properties of each file: path, modified_time, name, basename, extname
+- `site.html_pages`: site.pages  that end in `.html`
+- `site.html_files`: site.static_files that end in `.html`
+- `site.collections`: list of all collections (including posts)
+- `site.data`: list of all data files in the `_data` directory
+- `site.documents`: list of all documents in every collection
+- `site.categories.<CATEGORY>`: list of all Posts in category \<CATEGORY>
+- `site.tags.<TAG>`: list of all Posts with tag \<TAG>
+- `site.url`: site URL as configured in `_config.yml` (url: \<URL>)
+
+`page.[variable_name]`: page specific information & custom variables set via front matter in pages
+- `page.content`: content of the Page
+- `page.title`: title of the Page or Document 
+- `page.excerpt`: un-rendered excerpt of a Page or Document; 
+  - can be overridden in the page front matter or in the site configuration using `excerpt_separator`
+  (separator that defines the end of the excerpt)
+- `page.url`: URL of the Page without the domain, but with a leading slash, e.g. /about.html
+- `page.date`: Date assigned to the Page
+- `page.id`: identifier unique to a document or a post 
+- `page.categories`: list of categories to which the post belongs derived from the directory structure above the _posts directory 
+  - post.categories of post at /work/code/_posts/2008-12-24-closures.md --> ['work', 'code']
+  - `categories` can be set in the front matter
+  - path-based categories do not work for documents in user-defined collections
+- `page.collection`: label of the collection to which a Document belongs 
+- `page.tags`: list of tags to which the post belongs; specified in the front matter
+- `page.name`: filename of the post or page
+- `page.path`: path to the raw post or page, relative to the source directory
+- `page.slug`: filename of a Document resource without its extension (or date prefixes for a post)
+- `page.ext`: the file extension of a Document resource; can be overridden in the front matter
+- `page.next`: next post according to site.posts list, returns nil for the last entry
+- `page.previous`: previous post according to site.posts list, returns nil for the first entry
+
+`layout.[variable_name]`: layout specific information & custom variables set via front matter in layouts
+
+`jekyll.[variable_name]`: Jekyll-centric information
+- `jekyll.version`
+- `jekyll.environment`: value of environment variable JEKYLL_ENV
+
+`theme.[variable_name]`: theme-gem specific information defined in the theme's gemspec
+- `theme.root`: absolute path to the theme-gem 
+- `theme.authors`
+- `theme.description`: summary or description from theme gemspec
+- `theme.version`
+- `theme.dependencies`
+- `theme.metadata`: from theme gemspec
+
+`content`: variable with rendered content of the Post or Page being wrapped
+
+`paginator.[variable_name]`: available when paginate configuration option is set
+- `paginator.page`: current page number
+- `paginator.per_page`: number of posts per page
+- `paginator.posts`: posts available for the current page
+- `paginator.total_posts`: total number of posts
+- `paginator.total_pages`: total number of pages
+- `paginator.previous_page`: number of the previous page, or nil if no previous page exists
+- `paginator.previous_page_path`: path to the previous page, or nil if no previous page exists
+- `paginator.next_page`: number of the next page, or nil if no subsequent page exists
+- `paginator.next_page_path`: path to the next page, or nil if no subsequent page exists
+
+Front Matter predefined variables for pages or posts or documents:
+- `layout`
+- `permalink`
+- `published`: set false to exclude the post from the site
+
+Front Matter predefined variables for **posts**:
+- `date` 
+- `category` | `categories`
+- `tags`
+
+
+## Liquid attributes related to Collections
+```html
+{{ site.collections | where: "label", "myCollection" | first }}
+```
+
+-`label`: name of the collection
+-`docs`: array of documents in the collection
+-`files`: array of static files in the collection
+-`relative_directory`: path to the collection's source directory, relative to the site source
+-`directory`: full path to the collection's source directory
+-`output`: whether the collection's documents will be output as individual files
+
+Attributes accessible via each document in a collection:
+- `content`
+- `output`: rendered output based on the content
+- `path`: full path to the document's source file
+- `relative_path`: path to the document's source file relative to the site source
+- `url`: URL of the rendered collection 
+  - file is only written to the destination when the collection to which it belongs 
+  has `output: true` in the site's configuration 
+- `collection`: name of the document's collection
+- `date`: date of the document's collection
+
 
 # Layouts
 * no front matter
@@ -228,18 +445,32 @@ collection items can be accessed with: `site.<COLLECTION_NAME>` variable
 - collection list page: `.html`
 - entry for the collection list page: `_data/navigation.yml`
 - collection items/documents: @ `_<COLLECTION_NAME>` directory 
-- enable pages for each collection item in `_config.yaml`
-  ```yaml
-  # enable document/item output for collections
-  collections:
-    authors:
-      output: true
-  ```
 - layout for items/individual documents: `_layouts/<COLLECTION_ITEM_COMMON_NAME>.html`
-- 
+- collection configurations in `_config.yaml`
+```yaml
+  collections:
+    <COLLECTION_NAME>:
+      output: true
+      permalink: /:collection/:name/
+      # name: document's base filename slugified: downcased and
+      #   every sequence of non-alphanumeric character (including spaces) replaced by a hyphen
+  defaults:
+    - scope:
+        path: ""
+        type: "<COLLECTION_NAME>"
+      values:
+        layout: "<LAYOUT_FOR_COLLECTION_ITEM>"
+        # other custom variables for collection items/docs
+        show_sidebar: true 
+        toc: true
+ ```
 
 
 # Filters
+
+[Jekyll liquid filters](httpsjekyllrb.com/docs/liquid/filters/)
+
+[liquid filters](https://shopify.github.io/liquid/filters/)
 
 * `markdownify`: convert Markdown-formatted text into HTML
   * when `{{ content }}` is used in a layout, it is automatically converted
@@ -265,6 +496,46 @@ e.g:
 {% if author %}
 - <a href="{{ author.url }}">{{ author.name }}</a>
 {% endif %}
+```
+
+## `slugify` filter
+convert a string into a lowercase URL "slug"
+
+### `default` slugify filter
+```html
+{{ "The _config.yml file" | slugify }}
+```
+Output: replace spaces and non-alphanumeric characters with hyphens
+```text
+the-config-yml-file
+```
+
+### `pretty` slugify filter
+```html
+{{ "The _config.yml file" | slugify: "pretty" }}
+```
+Output: replace spaces and non-alphanumeric characters except for `._~!$&'()+,;=@` with hyphens
+```text
+the-_config.yml-file
+```
+
+### `ascii` slugify filter
+```html
+{{ "The _cönfig.yml file" | slugify: "ascii" }}
+```
+Output: replace spaces, non-alphanumeric and non-ASCII characters with hyphens
+```text
+the-c-nfig-yml-file
+```
+
+### `latin` slugify filter
+```html
+{{ "The cönfig.yml file" | slugify: "latin" }}
+```
+Output: Latin characters are first transliterated and 
+then spaces and non-alphanumeric characters are replaced with hyphens
+```text
+the-config-yml-file
 ```
 
 # Site Assets & Styling
@@ -815,16 +1086,48 @@ kramdown:
 </div>
 ```
 
+# Reuse cached files instead of rendering each time
+
+Using `jekyll-include-cache` plugin with `{% include_cached %}` liquid tag
+- caches the output of the included file based on params and filename and reuse it whenever requested
+
+dependency: `jekyll-include-cache` gem
+
+`Gemfile`:
+```ruby
+  gem "jekyll-include-cache" 
+```
+- or installing with `bundle add jekyll-include-cache` or `gem install jekyll-include-cache`
+
+
+`_config.yml`
+  ```yaml
+  plugins:
+    - jekyll-include-cache
+  ```
+
+usage
+```markdown
+{% include_cached navigation.html %}
+```
+
+## `include` vs `include_cached` tags
+- `{% include %}` tag: renders the included file every time it appears in the layout or page
+- `{% include_cached %}` tag: caches the output of the included file based on its parameters and filename
+  - If the same include is used multiple times with identical parameters,
+    it is rendered only once and then reused from cache.
+- Jekyll's `include` and `include_cached` tags are restricted to files within the `_includes` directory.
+
 
 # Reusable Templates
 
-- `_includes/navigation.html`
-- `_includes/footer.html`
-- `_includes/head.html`
-- `_layouts/default.html`
+
 
 ## Technology Catalog
-main page: `tech-catlog.html`
+main page: `tech-catlog.md`
+lists:
+- `technologies.md`
+- `topics.md`
 
 `_data`
 - `navigation.yml`
@@ -839,6 +1142,12 @@ main page: `tech-catlog.html`
 `_layouts`
 - `technology.html`
 - `topic.html`
+
+`_includes`
+- `technology-metadata.html`: metadata for current technology page
+- `topic-metadata.html`: metadata for current topic page
+- `technology-list-accordion.html`: accordion list of all technologies & their metadata
+- `topic-list-accordion.html`: accordion list of all topics & their metadata
 
 `_technologies`: `.md` / `.html` per each technology
 - [e.g:] `bootstrap.md`
