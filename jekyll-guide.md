@@ -1704,3 +1704,13 @@ Using `jekyll-include-cache` plugin and `include_cached` liquid tag to cache the
     it is rendered only once and then reused from cache.
 - Jekyll's `include` and `include_cached` tags are restricted to files within the `_includes` directory.
 
+## 20. 404 Not Found Page
+
+`404.html`: custom 404 page at root directory of the github pages publishing directory
+
+### Note:
+- For this to work permalink should be set to `pretty` in `_config.yml`
+  `_config.yml`
+```yaml
+permalink: pretty
+```
