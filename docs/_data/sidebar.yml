@@ -1,7 +1,7 @@
 # Common Docs Sidebar
 # Here icons are bootstrap icons, you can find them here: https://icons.getbootstrap.com/
 # Here, group title and page titles should be able to be converted to a valid URL slug that points to a web page
-#     when handleize liquid filter is applied to them.
+#     when slugify liquid filter is applied to them.
 - title: Home
   icon: house-fill
   icon_color: teal
