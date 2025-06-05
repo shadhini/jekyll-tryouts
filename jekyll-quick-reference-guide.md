@@ -1,7 +1,9 @@
+
+Jekyll Quick Reference Guide
+--
+
 ---
-title: Jekyll
-render_with_liquid: false
----
+
 # Jekyll
 
 - static site generator: `jekyll`
@@ -239,8 +241,10 @@ defaults:
 │         │         │       * site.data.navigation
 │         │         ├── sidebar.yml: sidebar groups and items
 │         │         │       * site.data.sidebar
-│         │         └── technologies.yml: data file for sample collection
-│         │                 * site.data.technologies
+│         │         └── technologies.yml: data file for sample collection - technologies list with related topics & similar technologies
+│         │         │       * site.data.technologies
+│         │         └── topics.yml: topics list with related technologies & related topics
+│         │                 * site.data.topics
 │         ├── _includes: reusable code snippets
 │         │         ├── docs-sidebar.html: sidebar for documentation
 │         │         ├── footer.html: footer for the site
@@ -250,15 +254,24 @@ defaults:
 │         │         ├── stylesheet.html: stylesheet list
 │         │         ├── svg-icons.html: SVG icons list
 │         │         ├── theme-toggler.html: theme/color mode toggler
-│         │         └── toc.html: TOC generator for markdown files
+│         │         ├── toc.html: TOC generator for markdown files
+│         │         │       * only markdown content is correctly processed
+│         │         │       * skipping/jumping heading levels distort output
+│         │         ├── technologies-breadcrumbs.html: breadcrumbs for pages/docs related to technologies 
+│         │         │       * not used
+│         │         ├── technology-list-accordion.html: accordion list of all technologies & their metadata
+│         │         ├── technology-metadata.html: technology metadata for current technology page
+│         │         ├── topic-list-accordion.html: accordion list of all topics & their metadata
+│         │         └── topic-metadata.html: topic metadata for current topic page
 │         ├── _layouts: page layouts
 │         │         ├── base.html: base layout and structure
-│         │         ├── post.html: layout for blog posts
-│         │         ├── author.html: layout for author pages
+│         │         ├── post.html: layout for blog posts; inherits from doc
+│         │         ├── author.html: layout for author pages; inherits from doc
 │         │         ├── default.html: default layout inherited from base
-│         │         ├── doc.html: docs layout inherited from base with TOC and sidebar
+│         │         ├── doc.html: 3 column layout for documentation with switchable & scrollable sidebar and TOC; inherits from base
 │         │         ├── landing-page.html: landing page layout with cover image 
-│         │         └── technology.html: layout for documents of sample collection named `technologies`
+│         │         ├── topic.html: layout for topics; inherits from doc
+│         │         └── technology.html: layout for documents of sample collection named `technologies`; inherits from doc
 │         ├── _sass: sass styling files
 │         │         ├── _clipboard-js.scss: styling for clipboard.js
 │         │         ├── _custom.scss: custom project styles
@@ -293,6 +306,7 @@ defaults:
 │         │         │       * post.title: post filename or front matter title
 │         │         │       * post.excerpt: first para of content
 │         │         ├── 2025-02-10-blog1-file-name.md
+│         │         ├── 2025-02-13-blog2-file-name.md
 │         │         └── 2025-02-15-jekyll-guide.md
 │         ├── _authors
 │         │         └── jill.md
@@ -312,10 +326,15 @@ defaults:
 │         │             └── test-frameworks
 │         │                 ├── bootstrap-framework-2.md
 │         │                 └── bootstrap-framweok-1.md
+│         ├── _topics
+│         │         ├── css-frameworks.md
+│         │         └── web-development-technologies.md
 │         ├── about.md
 │         ├── authors.md
 │         ├── blogs.md: blogs (taken from /_posts) list view
+│         ├── tech-catalog.md: tabular technology and topic catalog
 │         ├── technologies.md: sample page with documents in technology collection
+│         ├── topics.md: topic list
 │         ├── index.md: home page
 │         ├── 404.html: custom 404 page
 │         └── _site: generated site files
